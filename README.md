@@ -8,3 +8,12 @@ Ruggiero.
 Calle Falsa 123.
 
 ----
+
+## Estudios:
+
+- Primaria.
+- Secundaria.
+- Terciario(Cursando actualmente).
+
+---
+
