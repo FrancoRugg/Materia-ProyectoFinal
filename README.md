@@ -19,3 +19,15 @@ Calle Falsa 123.
 
 ---
 
+| Materias | Parciales | Calificación |
+|----------|-----------|--------------|
+| Proyecto Final | 1 | 10 |
+| Valores Cristianos | 1 | 8 |
+| Calidad de Software | 1 | 10 |
+| Taller Prog III | 2 | 9.5 |
+| Seguridad e Integridad de Sistemas | 6 | 10 |
+| Prog III | 1 | 6 |
+
+---
+
+
