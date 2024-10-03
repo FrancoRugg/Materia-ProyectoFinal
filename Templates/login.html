@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <style></style>
+  </head>
+
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form method="post">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Ingresar</button>
+      </form>
+      {% if error %}
+      <p class="error"><strong>Error: </strong>{{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

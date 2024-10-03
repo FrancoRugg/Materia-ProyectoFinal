@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .error{
+    text-align: center;
+    padding: 3px;
+    color: red;
+  }
+  .off{
+    display: none !important;
+  }
+  .on{
+    display: block;
+  }
+  .all{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 3pc;
+    padding: 4px;
+  } 
+  .home-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  #cuil_form{
+    display: grid;
+    grid-template-columns: 1fr;
+    border: solid 1px lightgrey;
+    border-radius: 7px;
+    /* border-style: hidden; */
+    align-content: space-around;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .input_form{
+    display: flex;
+    flex-direction: column;
+    padding: 1px;
+    margin: auto;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  #cuil_form form{
+    display: flex;
+    flex-direction: column;
+  }
+  #makeCuil{
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  #makeCuil:hover {
+    background-color: #0056b3;
+  }
+
+  .home-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .home-container button:hover {
+    background-color: #0056b3;
+  }
+  .closeForm{
+    background-color: #ff0000e0 !important;
+  }
+  .closeForm:hover{
+    background-color: #ff00009c !important;
+  }
+  .login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+
+  .login-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .login-container input {
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .login-container button:hover {
+    background-color: #0056b3;
+  }

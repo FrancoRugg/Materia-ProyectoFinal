@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+
+  <body>
+    <div class="all">
+      <div class="home-container">
+        <h2>Bienvenido al Home</h2>
+        <div>
+          <button type="submit" id="see_form">Abrir Formulario</button>
+        </div>
+      </div>
+      <article class="off" id="cuil_form">
+        <form method="POST">
+          <div class="input_form">
+            <label for="dni">Ingrese DNI: </label>
+            <input type="number" placeholder="xxxxxxxx" name="dni" id="dni" />
+          </div>
+          <div class="input_form">
+            <label for="genre">Seleccione su género: </label>
+            <select name="genre" id="genre">
+              <option value="null" selected disabled>Género ...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+            </select>
+          </div>
+          <div>
+            <button type="button" id="makeCuil">Generar</button>
+            <!-- Le pongo button para que no me recargue la pág con el submit -->
+          </div>
+
+          <div>
+            <!-- {% if error %}
+                    <p class="error" id="error"><strong>Error: </strong>{{ error }}</p>
+                    {% endif %} -->
+            <p class="error" id="error"></p>
+          </div>
+        </form>
+        <article>
+          <div>
+            <!-- {% if setCuil %}
+                    <p id="setCuil">{{setCuil}}</p>
+                    {% endif %} -->
+            <p id="setCuil"></p>
+          </div>
+        </article>
+      </article>
+    </div>
+    <!-- <script src="static/js/"></script> -->
+  </body>
+</html>
