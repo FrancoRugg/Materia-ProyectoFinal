@@ -1,57 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
 
-  <body>
-    <div class="all">
-      <div class="home-container">
-        <h2>Bienvenido {{ session.get('name', 'invitado') }}</h2>
-        <div>
-          <button type="submit" id="see_form">Ver</button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+
+</head>
+
+<body>
+  <div class="all">
+    <div class="container">
+      <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">Bienvenido {{ session.get('name', 'invitado') }}
+      </h2>
+      <div>
+        <button type="submit" id="disconect">Log Out</button>
       </div>
-      <article class="off" id="cuil_form">
-        <form method="POST">
-          <div class="input_form">
-            <label for="dni">Ingrese DNI: </label>
-            <input type="number" placeholder="xxxxxxxx" name="dni" id="dni" />
-          </div>
-          <div class="input_form">
-            <label for="genre">Seleccione su género: </label>
-            <select name="genre" id="genre">
-              <option value="null" selected disabled>Género ...</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-            </select>
-          </div>
-          <div>
-            <button type="button" id="makeCuil">Generar</button>
-            <!-- Le pongo button para que no me recargue la pág con el submit -->
-          </div>
-
-          <div>
-            <!-- {% if error %}
-                    <p class="error" id="error"><strong>Error: </strong>{{ error }}</p>
-                    {% endif %} -->
-            <p class="error" id="error"></p>
-          </div>
-        </form>
-        <article>
-          <div>
-            <!-- {% if setCuil %}
-                    <p id="setCuil">{{setCuil}}</p>
-                    {% endif %} -->
-            <p id="setCuil"></p>
-          </div>
-        </article>
-      </article>
     </div>
-    <!-- <script src="static/js/"></script> -->
-  </body>
+    <div class="home-container data-home">
+      <section class="sections">
+        <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
+        <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
+        <div class="title">
+          <h2>Title</h2>
+          <div class="s_edit" id="s_id">
+            <i class='bx bxs-edit'></i>
+          </div>
+        </div>
+        <div class="products">
+          <article class="Product">
+            <div>
+              <div class="p_edit">
+                <i class='bx bxs-edit'></i>
+              </div>
+              <p class="p_name">Name</p>
+              <p class="p_price">Price</p>
+            </div>
+            <div>
+              <button type="button" id="p_id">Add</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="static/js/home.js"></script>
+  <script src="static/js/tools.js"></script>
+</body>
+
 </html>

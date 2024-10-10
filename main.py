@@ -1,4 +1,4 @@
-from flask import Flask,redirect,session,render_template,request,send_from_directory;
+from flask import Flask,redirect,session,render_template,request,send_from_directory,jsonify;
 import os;
 from Model import bdd
 
@@ -56,28 +56,29 @@ def Home():
     #         # print({'error' : f"{e.args[0]}"});
     #         # print(jsonify({'error' : f"{e.args[0]}"}));
     #         # jsonify({'error' : f"{e.args[0]}"})
-    all = getSectorData();
-    print(all);
-    title = "";
-    rol = session.get('rol',2);
-    print(rol)
-    for single in all:
-        # print(single)
-        if(title != single.s_name):
-            id = single.id;
-            print(single.s_name);
-            print('--------------------------');
-            products = getProducts(id)
-            for one in products:
-                if(rol == 1 and one.active == 0 or one.active == 1):
-                    print(f"Name: {one.p_name} - Value: {one.p_price} - Active: {one.active}")
-        # print('--------------------------');
-        # print(single)
-        title = single.s_name
-        # for one in single:
-        #     print(one);
-    # print(all)
-    print(session);
+    # all = getSectorData();
+    # if all:
+    #     print(all);
+    #     title = "";
+    #     rol = session.get('rol',2);
+    #     print(rol)
+    #     for single in all:
+    #         # print(single)
+    #         if(title != single.s_name):
+    #             id = single.id;
+    #             print(single.s_name);
+    #             print('--------------------------');
+    #             products = getProducts(id)
+    #             for one in products:
+    #                 if(rol == 1 and one.active == 0 or one.active == 1):
+    #                     print(f"Name: {one.p_name} - Value: {one.p_price} - Active: {one.active}")
+    #         # print('--------------------------');
+    #         # print(single)
+    #         title = single.s_name
+    #         # for one in single:
+    #         #     print(one);
+    #     # print(all)
+    # print(session);
     return render_template("home.html");
 @app.route("/setCuil", methods=['POST'])#Preguntar como acceder directamente a las funciones
 def setCuil():
@@ -85,10 +86,14 @@ def setCuil():
 @app.route("/getSectorData", methods=['GET'])
 def getSectorData():
     all = conn.getAllSector();
-    return all;
+    sector_list = [{'id': s.id, 'name': s.s_name, 'active': s.active} for s in all]  # Convierte a lista de diccionarios
+    return jsonify(sector_list)  # Devuelve como JSON
 @app.route("/getProducts", methods=['GET'])
-def getProducts(sectorId):
+def getProducts():
+    sectorId = request.args.get('sectorId') 
     all = conn.getProducts(sectorId);
+    product_list = [{'id': p.id, 'name': p.p_name, 'price': p.p_price, 'active': p.active} for p in all]  # Convierte a lista de diccionarios
+    return jsonify(product_list)  # Devuelve como JSON
     return all;
 @app.route("/style.css")
 def style():

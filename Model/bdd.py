@@ -145,7 +145,8 @@ class BddMethods:
     def getAllSector(self):
         """Se trae todos los sectores"""
         # RECRODAR EN EL CÖDIGO QUE LOS INACTIVOS SOLO PUEDA VERLOS Y EDITAR EL ADMIN, EL RESTO LOS VË Y NO PUEDE REALIZAR CLICK EN ELLOS
-        getAll = Sector.select(Sector.q.id == Products.q.sector)
+        # Sector.q.id == Products.q.sector
+        getAll = Sector.select(1==1)
         
         if getAll.count() > 0:
             return getAll;
