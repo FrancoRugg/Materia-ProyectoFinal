@@ -18,7 +18,7 @@ def login():
         if login:
             session["logged"] = True;
             session["name"] = request.form["username"];
-            if request.form["username"] == "f":
+            if request.form["username"] == "Franco":
                 session["rol"] = 1;
             else:
                 session["rol"] = 2;
@@ -56,12 +56,40 @@ def Home():
     #         # print({'error' : f"{e.args[0]}"});
     #         # print(jsonify({'error' : f"{e.args[0]}"}));
     #         # jsonify({'error' : f"{e.args[0]}"})
+    all = getSectorData();
+    print(all);
+    title = "";
+    rol = session.get('rol',2);
+    print(rol)
+    for single in all:
+        # print(single)
+        if(title != single.s_name):
+            id = single.id;
+            print(single.s_name);
+            print('--------------------------');
+            products = getProducts(id)
+            for one in products:
+                if(rol == 1 and one.active == 0 or one.active == 1):
+                    print(f"Name: {one.p_name} - Value: {one.p_price} - Active: {one.active}")
+        # print('--------------------------');
+        # print(single)
+        title = single.s_name
+        # for one in single:
+        #     print(one);
+    # print(all)
     print(session);
     return render_template("home.html");
 @app.route("/setCuil", methods=['POST'])#Preguntar como acceder directamente a las funciones
 def setCuil():
     pass;
-
+@app.route("/getSectorData", methods=['GET'])
+def getSectorData():
+    all = conn.getAllSector();
+    return all;
+@app.route("/getProducts", methods=['GET'])
+def getProducts(sectorId):
+    all = conn.getProducts(sectorId);
+    return all;
 @app.route("/style.css")
 def style():
     """Get CSS"""

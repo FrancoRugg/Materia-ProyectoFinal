@@ -21,6 +21,7 @@ class Sector(SO.SQLObject):
     """Crea la tabla Sector"""
     s_name = SO.StringCol(length = 40);
     active = SO.IntCol();
+    client = SO.MultipleJoin('Products');
     
 class Products(SO.SQLObject):
     sector = SO.ForeignKey("Sector", default = None, cascade = False);
@@ -65,12 +66,12 @@ class Logs(SO.SQLObject):
     
     
 # Users.dropTable();
-Users.createTable(ifNotExists = True)
-Sector.createTable(ifNotExists = True)
-Products.createTable(ifNotExists = True)
-Transactions.createTable(ifNotExists = True)
-# ProductsTransaction.createTable(ifNotExists = True)
-Logs.createTable(ifNotExists = True)
+# Users.createTable(ifNotExists = True)
+# Sector.createTable(ifNotExists = True)
+# Products.createTable(ifNotExists = True)
+# Transactions.createTable(ifNotExists = True)
+# # ProductsTransaction.createTable(ifNotExists = True)
+# Logs.createTable(ifNotExists = True)
     
 # Users(user = 'f',password = 'f1',active = 1, rol = 1)
 # Users(user = 't',password = 't1',active = 1, rol = 2)
@@ -144,7 +145,15 @@ class BddMethods:
     def getAllSector(self):
         """Se trae todos los sectores"""
         # RECRODAR EN EL CÖDIGO QUE LOS INACTIVOS SOLO PUEDA VERLOS Y EDITAR EL ADMIN, EL RESTO LOS VË Y NO PUEDE REALIZAR CLICK EN ELLOS
-        getAll = Sector.select(True == True)
+        getAll = Sector.select(Sector.q.id == Products.q.sector)
+        
+        if getAll.count() > 0:
+            return getAll;
+        else:
+            return None;
+    def getProducts(self, sectorId):
+        sectorId = sectorId;
+        getAll = Products.select(Products.q.sector == sectorId)
         
         if getAll.count() > 0:
             return getAll;
