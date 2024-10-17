@@ -8,11 +8,51 @@
   <title>Home</title>
   <link rel="stylesheet" href="/static/css/style.css" />
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
-
 </head>
 
 <body>
+  <article class="see_section off" id="see_section">
+    <form class="container relative" method="POST">
+      <div class="close" id="close_section">
+        <i class='bx bx-x'></i>
+      </div>
+      <div class="input_form off" id="see_id">
+        <label for="id">ID: </label>
+        <input type="id" placeholder="" name="id" id="get_id" disabled>
+      </div>
+      <div class="input_form">
+        <label for="section">Ingrese Seccion: </label>
+        <input type="section" placeholder="" name="section" id="set_section">
+      </div>
+      <div class="input_form off" id="see_active">
+        <label for="active">Activo:</label>
+        <select name="active" id="set_active">
+          <option value="" selected disabled>Activo ...</option>
+          <option value="1">Si</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div>
+        <button class="off" type="button" id="send_section">Crear</button>
+        <button class="off" type="button" id="edit_section">Editar</button>
+      </div>
+
+      <div>
+        <p class="error" id="error"></p>
+      </div>
+    </form>
+  </article>
   <div class="all">
+    <div class="loadingContainer2">
+      <section>
+        {% for i in range(1, 16) %}
+        <article class="textContainer{{ i }}">
+          <p>Cargando...</p>
+        </article>
+        {% endfor %}
+      </section>
+    </div>
+
     <div class="container">
       <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">Bienvenido {{ session.get('name', 'invitado') }}
       </h2>
@@ -20,7 +60,7 @@
         <button type="submit" id="disconect">Log Out</button>
       </div>
     </div>
-    <div class="home-container data-home">
+    <div class="home-container data-home relative">
       <section class="sections">
         <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
         <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->

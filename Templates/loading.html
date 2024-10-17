@@ -1,0 +1,11 @@
+{% block loading %}
+<div class="loadingContainer2">
+  <section>
+    {% for i in range(1, 16) %}
+    <article class="textContainer{{ i }}">
+      <p>Cargando...</p>
+    </article>
+    {% endfor %}
+  </section>
+</div>
+{% endblock %}

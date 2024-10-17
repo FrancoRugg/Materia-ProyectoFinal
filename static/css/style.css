@@ -14,6 +14,7 @@ body {
     justify-content: center; */
     align-items: center;
     margin: 0;
+    position: relative;
   }
   
   .error{
@@ -41,6 +42,17 @@ body {
     margin: auto;
     margin-bottom: 6px;
     text-align: center;
+  }
+  .see_section{
+    position: absolute;
+    top: 18%;
+    left: 0%;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background: #80808087;
+    margin: auto;
+    padding: 3%;
   }
   .container {
     text-align: center;
@@ -186,6 +198,31 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
   }
+  .relative{
+    position: relative;
+  }
+  .close{
+    font-size: 27px;
+    position: absolute;
+    color: darkgrey;
+    right: 4%;
+    top: 3%;
+  }
+  .close:hover{
+    /* background: lightgray; */
+    border-radius: 3px;
+    color: red;
+  }
+  #add_section{
+    position: absolute;
+    right: 2%;
+    top: 0%;
+    color: darkgrey;
+    font-size: 40px;
+  }
+  #add_section:hover{
+    color: green;
+  }
   .p_edit{
     font-size: 22px;
     position: absolute;
@@ -206,3 +243,267 @@ body {
   .p_price{
     color: gray;
   }
+
+
+  /* -------------------LOADING---------------------- */
+  .loadingContainer2{
+    position: fixed;
+    z-index: 9999;
+    background-color: #dddddd78;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display:none;
+}
+.loadingContainer2 section .textContainer1,
+.loadingContainer2 section .textContainer2,
+.loadingContainer2 section .textContainer3,
+.loadingContainer2 section .textContainer4,
+.loadingContainer2 section .textContainer5,
+.loadingContainer2 section .textContainer6,
+.loadingContainer2 section .textContainer7,
+.loadingContainer2 section .textContainer8,
+.loadingContainer2 section .textContainer9,
+.loadingContainer2 section .textContainer10,
+.loadingContainer2 section .textContainer11,
+.loadingContainer2 section .textContainer12,
+.loadingContainer2 section .textContainer13,
+.loadingContainer2 section .textContainer14,
+.loadingContainer2 section .textContainer15{
+    width: 189px;
+    height: 46px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    /* border: solid 1px var(--toggle-color); */
+    /* border-radius: 7px; */
+    padding: 9px;
+    /* background: var(--toggle-color); */
+    text-align: center;
+}
+.textContainer1{
+    color: rgb(27 156 195 / 55%);
+    animation: increaseFontAnimation 1.5s infinite alternate;
+    left: 65% !important;
+    top: 30% !important;
+}
+.textContainer2{
+    color: rgb(0 196 255 / 60%);
+    animation: increaseFontAnimation 1.7s infinite alternate;
+    left: 66% !important;
+    top: 48% !important;
+}
+.textContainer3{
+    color: rgb(0 196 255 / 65%);
+    animation: increaseFontAnimation 2.5s infinite alternate;
+    left: 34% !important;
+    top: 32% !important;
+}
+.textContainer4{
+    color: rgb(0 196 255 / 70%);
+    animation: increaseFontAnimation 2.1s infinite alternate;
+    left: 34% !important;
+    top: 51% !important;
+}
+.textContainer5{
+    color: rgb(0 196 255 / 75%);
+    animation: increaseFontAnimation 2.3s infinite alternate;
+    top: 65% !important;
+    left: 47% !important;
+}
+.textContainer6{
+    color: var(--subtext-color) !important;
+    animation: increaseFontAnimation 1.9s infinite alternate;
+}
+.textContainer7{
+    color: rgb(27 156 195 / 55%);
+    animation: increaseFontAnimation 1.2s infinite alternate;
+    left: 84% !important;
+    top: 23% !important;
+}
+.textContainer8{
+    color: rgb(0 196 255 / 60%);
+    animation: increaseFontAnimation 1.9s infinite alternate;
+    left: 83% !important;
+    top: 64% !important;
+}
+.textContainer9{
+    color: rgb(0 196 255 / 65%);
+    animation: increaseFontAnimation 2.2s infinite alternate;
+    left: 15% !important;
+    top: 22% !important;
+}
+.textContainer10{
+    color: rgb(0 196 255 / 70%);
+    animation: increaseFontAnimation 1s infinite alternate;
+    left: 15% !important;
+    top: 58% !important;
+}
+.textContainer11{
+    color: rgb(0 196 255 / 75%);
+    animation: increaseFontAnimation 2s infinite alternate;
+    top: 78% !important;
+    left: 60% !important;
+}
+.textContainer12{
+    color: rgb(0 196 255 / 80%);
+    animation: increaseFontAnimation 1.6s infinite alternate;
+    top: 16% !important;
+}
+.textContainer13{
+    color: rgb(0 196 255 / 85%);
+    animation: increaseFontAnimation 1.6s infinite alternate;
+    top: 39% !important;
+    left: 83% !important;
+}
+.textContainer14{
+    color: rgb(0 196 255 / 90%);
+    animation: increaseFontAnimation 1.6s infinite alternate;
+    top: 79% !important;
+    left: 18% !important;
+}
+.textContainer15{
+    color: rgb(0 196 255 / 95%);
+    animation: increaseFontAnimation 1.6s infinite alternate;
+    top: 40% !important;
+    left: 10% !important;
+}
+@keyframes increaseFontAnimation {
+    from {
+        font-size: 0px;
+    }
+    to {
+        font-size: 31px;
+    }
+}
+
+/* .loadingContainer2{
+  position: fixed;
+  z-index: 9999;
+  background-color: #dddddd78;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display:none;
+} */
+/* .loadingContainer2 section .textContainer1,
+.loadingContainer2 section .textContainer2,
+.loadingContainer2 section .textContainer3,
+.loadingContainer2 section .textContainer4,
+.loadingContainer2 section .textContainer5,
+.loadingContainer2 section .textContainer6,
+.loadingContainer2 section .textContainer7,
+.loadingContainer2 section .textContainer8,
+.loadingContainer2 section .textContainer9,
+.loadingContainer2 section .textContainer10,
+.loadingContainer2 section .textContainer11,
+.loadingContainer2 section .textContainer12,
+.loadingContainer2 section .textContainer13,
+.loadingContainer2 section .textContainer14,
+.loadingContainer2 section .textContainer15{
+  width: 189px;
+  height: 46px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  /* border: solid 1px var(--toggle-color); */
+  /* border-radius: 7px; */
+  /* padding: 9px; */
+  /* background: var(--toggle-color); */
+  /* text-align: center; */
+/* } */
+/* .textContainer1{
+  color: rgb(27 156 195 / 55%);
+  animation: increaseFontAnimation 1.5s infinite alternate;
+  left: 65% !important;
+  top: 30% !important;
+} */
+/* .textContainer2{
+  color: rgb(0 196 255 / 60%);
+  animation: increaseFontAnimation 1.7s infinite alternate;
+  left: 66% !important;
+  top: 48% !important;
+}
+.textContainer3{
+  color: rgb(0 196 255 / 65%);
+  animation: increaseFontAnimation 2.5s infinite alternate;
+  left: 34% !important;
+  top: 32% !important;
+}
+.textContainer4{
+  color: rgb(0 196 255 / 70%);
+  animation: increaseFontAnimation 2.1s infinite alternate;
+  left: 34% !important;
+  top: 51% !important;
+}
+.textContainer5{
+  color: rgb(0 196 255 / 75%);
+  animation: increaseFontAnimation 2.3s infinite alternate;
+  top: 65% !important;
+  left: 47% !important;
+}
+.textContainer6{
+  color: var(--subtext-color);
+  animation: increaseFontAnimation 1.9s infinite alternate;
+} */
+/* .textContainer7{
+  color: rgb(27 156 195 / 55%);
+  animation: increaseFontAnimation 1.2s infinite alternate;
+  left: 84% !important;
+  top: 23% !important;
+}
+.textContainer8{
+  color: rgb(0 196 255 / 60%);
+  animation: increaseFontAnimation 1.9s infinite alternate;
+  left: 83% !important;
+  top: 64% !important;
+}
+.textContainer9{
+  color: rgb(0 196 255 / 65%);
+  animation: increaseFontAnimation 2.2s infinite alternate;
+  left: 15% !important;
+  top: 22% !important;
+}
+.textContainer10{
+  color: rgb(0 196 255 / 70%);
+  animation: increaseFontAnimation 1s infinite alternate;
+  left: 15% !important;
+  top: 58% !important;
+}
+.textContainer11{
+  color: rgb(0 196 255 / 75%);
+  animation: increaseFontAnimation 2s infinite alternate;
+  top: 78% !important;
+  left: 60% !important;
+}
+.textContainer12{
+  color: rgb(0 196 255 / 80%);
+  animation: increaseFontAnimation 1.6s infinite alternate;
+  top: 16% !important;
+}
+.textContainer13{
+  color: rgb(0 196 255 / 85%);
+  animation: increaseFontAnimation 1.6s infinite alternate;
+  top: 39% !important;
+  left: 83% !important;
+}
+.textContainer14{
+  color: rgb(0 196 255 / 90%);
+  animation: increaseFontAnimation 1.6s infinite alternate;
+  top: 79% !important;
+  left: 18% !important;
+}
+.textContainer15{
+  color: rgb(0 196 255 / 95%);
+  animation: increaseFontAnimation 1.6s infinite alternate;
+  top: 40% !important;
+  left: 10% !important;
+} */
+ /* @keyframes increaseFontAnimation {
+  from {
+      font-size: 0px;
+  }
+  to {
+      font-size: 31px;
+  }
+}  */

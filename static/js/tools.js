@@ -72,3 +72,11 @@ function getFetch(url, method = 'GET', bodyData = null) {
             console.error('Error en la solicitud:', error);
         });
 }
+
+
+// function openLoad() {
+//     document.querySelector('.loadingContainer2').style.display = 'block';
+// }
+// function closeLoad() {
+//     document.querySelector('.loadingContainer2').style.display = 'none';
+// }
