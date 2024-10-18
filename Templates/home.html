@@ -42,6 +42,47 @@
       </div>
     </form>
   </article>
+  <article class="see_section off" id="see_product">
+    <form class="container relative" method="POST">
+      <div class="close" id="close_product">
+        <i class='bx bx-x'></i>
+      </div>
+      <div class="input_form off" id="see_p_id">
+        <label for="id">ID: </label>
+        <input type="id" placeholder="" name="id" id="get_p_id" disabled>
+      </div>
+      <div class="input_form" id="see_p_section">
+        <label for="section">Sección:</label>
+        <select name="section" id="set_p_section">
+          <option value="0" selected disabled>Elija una opción ...</option>
+        </select>
+      </div>
+      <div class="input_form">
+        <label for="product">Ingrese Producto: </label>
+        <input type="product" placeholder="Ej:Pizza con Piña" name="product" id="set_product">
+      </div>
+      <div class="input_form">
+        <label for="price">Ingrese Precio: </label>
+        <input type="number" placeholder="$1000" name="price" id="set_price">
+      </div>
+      <div class="input_form off" id="see_p_active">
+        <label for="active">Activo:</label>
+        <select name="active" id="set_p_active">
+          <option value="" selected disabled>Activo ...</option>
+          <option value="1">Si</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div>
+        <button class="off" type="button" id="send_product">Crear</button>
+        <button class="off" type="button" id="edit_product">Editar</button>
+      </div>
+
+      <div>
+        <p class="error" id="p_error"></p>
+      </div>
+    </form>
+  </article>
   <div class="all">
     <div class="loadingContainer2">
       <section>
@@ -61,26 +102,26 @@
       </div>
     </div>
     <div class="home-container data-home relative">
-      <section class="sections">
+      <section class="sections skeleton">
         <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
         <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
-        <div class="title">
-          <h2>Title</h2>
-          <div class="s_edit" id="s_id">
-            <i class='bx bxs-edit'></i>
+        <div class="title skeleton">
+          <h2 class="skeleton">Title</h2>
+          <div class="s_edit skeleton" id="s_id">
+            <i class='bx bxs-edit skeleton'></i>
           </div>
         </div>
-        <div class="products">
-          <article class="Product">
+        <div class="products skeleton">
+          <article class="Product skeleton">
             <div>
-              <div class="p_edit">
-                <i class='bx bxs-edit'></i>
+              <div class="p_edit skeleton">
+                <i class='bx bxs-edit skeleton'></i>
               </div>
-              <p class="p_name">Name</p>
-              <p class="p_price">Price</p>
+              <p class="p_name skeleton">Name</p>
+              <p class="p_price skeleton">Price</p>
             </div>
-            <div>
-              <button type="button" id="p_id">Add</button>
+            <div class="skeleton">
+              <button type="button skeleton" id="p_id">Add</button>
             </div>
           </article>
         </div>
