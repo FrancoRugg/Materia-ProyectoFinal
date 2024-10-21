@@ -137,10 +137,12 @@ class BddMethods:
                 newData[0].active = newActive;
                 newData[0].s_name = newSectorName;
         else:
-            newSector = Sector(s_name = f"{newSectorName}", active = 1);
-            sectorId = newSector.id;
-            self.addOrEditProducts("Test",0,sectorId,"Null",1233,0);
-            Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {newSectorName}", action = 'INSERT', time = self.newTime())
+            exist = Sector.select(Sector.q.s_name == newSectorName);
+            if exist.count() < 0:
+                newSector = Sector(s_name = f"{newSectorName}", active = 1);
+                sectorId = newSector.id;
+                self.addOrEditProducts("Test",0,sectorId,"Null",1233,0);
+                Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {newSectorName}", action = 'INSERT', time = self.newTime())
             
             # if newSector:
             #     print(f"Sector {newSectorName} creado");
@@ -214,10 +216,12 @@ class BddMethods:
             get[0].active = active;
             get[0].sectorID = sectorId;
         else:
-            newProduct = Products(p_name = f"{name}",sectorID = sectorId, p_price = price, active = active);
-            if newProduct:
-                obs = f"Creó el producto {name}, con Precio: {price} y Active: {active}"
-                Logs(created_by = f"{created_by}",obs = obs, action = 'INSERT', time = self.newTime())
+            exist = Products.select(Products.q.p_name == name);
+            if exist.count() < 0:
+                newProduct = Products(p_name = f"{name}",sectorID = sectorId, p_price = price, active = active);
+                if newProduct:
+                    obs = f"Creó el producto {name}, con Precio: {price} y Active: {active}"
+                    Logs(created_by = f"{created_by}",obs = obs, action = 'INSERT', time = self.newTime())
                 
     # MODO DE USO
         #     transactions = getTransactions(self, "user1", since, until)
