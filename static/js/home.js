@@ -51,7 +51,7 @@ if (edit_product) {
             let set_price = document.getElementById('set_price').value;
             let active = document.querySelectorAll('#set_p_active')[0].value;
 
-            if (section === "") {
+            if (section === "" || set_product === "" || set_price === "") {
                 alert('Es necesario completar todos los campos');
                 return;
             }
@@ -100,7 +100,7 @@ if (add_product) {
             let set_price = document.getElementById('set_price').value;
             let active = 1;
 
-            if (section === "") {
+            if (section === "" || set_product === "" || set_price === "") {
                 alert('Es necesario completar todos los campos');
                 return;
             }
@@ -130,6 +130,103 @@ if (add_product) {
                     });
             } catch (error) {
                 set_error.textContent = "Error: " + error;
+            }
+
+        } else {
+            alert('Accion cancelada');
+        }
+    });
+}
+const add_section = document.getElementById('send_section');
+if (add_section) {
+    add_section.addEventListener('click', () => {
+        const conf = confirm('Desea agregar una nueva Seccion?');
+        if (conf == true) {
+            // openLoad();
+
+            // data = "ID=" + get_id;
+            // data += "&sectorID=" + section;
+            // data += "&p_name=" + set_product;
+            // data += "&p_price=" + set_price;
+            // data += "&active=" + active;
+
+            let section = document.getElementById('set_section').value;
+            let active = 1;
+
+            if (section === "" || section === null) {
+                alert('Es necesario completar todos los campos');
+                return;
+            }
+
+            // data = "ID=" + get_id;
+            // data += "&sectorID=" + section;
+            // data += "&p_name=" + set_product;
+            // data += "&p_price=" + set_price;
+            // data += "&active=" + active;
+            let data = {
+                "ID": 0,
+                "s_name": section,
+                "active": active
+            };
+
+            console.log(data);
+            // return;
+            set_error = document.getElementById('p_error');
+            try {
+                getFetchJSON('/editSection', 'POST', JSON.stringify(data))
+                    .then((res) => {
+                        if (res) {
+                            getSections();
+                        }
+                    });
+            } catch (error) {
+                set_error.textContent = "Error: " + error;
+            }
+
+        } else {
+            alert('Accion cancelada');
+        }
+    });
+}
+const edit_section = document.getElementById('edit_section');
+if (edit_section) {
+    edit_section.addEventListener('click', () => {
+        const conf = confirm('Desea editar la Seccion?');
+        if (conf == true) {
+            // openLoad();
+            let get_id = document.getElementById('get_id').value;
+            let section = document.getElementById('set_section').value;
+            let active = document.querySelectorAll('#set_active')[0].value;;
+
+            if (section === "" || section === null) {
+                alert('Es necesario completar todos los campos');
+                return;
+            }
+
+            // data = "ID=" + get_id;
+            // data += "&sectorID=" + section;
+            // data += "&p_name=" + set_product;
+            // data += "&p_price=" + set_price;
+            // data += "&active=" + active;
+            let data = {
+                "ID": get_id,
+                "s_name": section,
+                "active": active
+            };
+
+            console.log(data);
+            // return;
+            set_error = document.getElementById('p_error');
+            try {
+                getFetchJSON('/editSection', 'POST', JSON.stringify(data))
+                    .then((res) => {
+                        if (res) {
+                            getSections();
+                        }
+                    });
+            } catch (error) {
+                set_error.textContent = "Error: " + error;
+                console.error(error);
             }
 
         } else {

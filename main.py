@@ -100,20 +100,24 @@ def editProduct():
     
     res = conn.addOrEditProducts(create_by, ID, sectorID, p_name, p_price, p_active)
     # return res;
+    
     return {"status": "success", "result": res}
     
 @app.route("/editSection", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
 def editSection():
     create_by = session.get('name', 'invitado')
-    data = request.json
+    data = request.get_json();
     sector = data.get('s_name')
+    ID = data.get('ID')
+    active = int(data.get('active'));
     
-    exist = conn.getOrCreateSector(create_by,sector);
-    if(exist == False):
-        ID = data.get('ID')
-        active = data.get('active');
-        res = conn.editSector(create_by,ID,sector,active);
+    # exist = conn.getOrCreateSector(create_by,sector);
+    # if(exist == False):
+    res = conn.editSector(create_by,ID,sector,active);
+    return {"status": "success", "result": res}
         # return res;
+    # return {"status": "error", "message": "El sector ya existe"}
+
 @app.route("/getSectorData", methods=['GET'])
 def getSectorData():
     all = conn.getAllSector();
@@ -123,7 +127,11 @@ def getSectorData():
 def getProducts():
     sectorId = request.args.get('sectorId') 
     all = conn.getProducts(sectorId);
-    product_list = [{'id': p.id, 'name': p.p_name, 'price': p.p_price, 'active': p.active} for p in all]  # Convierte a lista de diccionarios
+    if all.count() > 0:
+        product_list = [{'id': p.id, 'name': p.p_name, 'price': p.p_price, 'active': p.active} for p in all]  # Convierte a lista de diccionarios
+    else:
+        product_list = [{'id': 0, 'name': "N", 'price': '$', 'active': 0} for p in all]  # Convierte a lista de diccionarios
+
     return jsonify(product_list)  # Devuelve como JSON
     return all;
 @app.route("/style.css")

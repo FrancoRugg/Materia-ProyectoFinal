@@ -109,7 +109,7 @@ class BddMethods:
     
     def getOrCreateSector(self, created_by, sector):
         """Busca si existe el Sector, caso contrario lo crea y en ambos te devuelve el dato"""
-        sector = sector.upper().strip();
+        sector = sector.strip();
         created_by = created_by.lower().strip();
         
         get = Sector.select(SO.AND(Sector.q.s_name == sector,Sector.q.active == 1))
@@ -118,31 +118,35 @@ class BddMethods:
             Logs(created_by = f"{created_by}",obs =  f"Buscó el sector {sector}", action = 'GET', time = self.newTime())
             print(get[0].s_name);
             return False;
-        else:
-            newSector = Sector(s_name = f"{sector}", active = 1);
-            Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {sector}", action = 'INSERT', time = self.newTime())
-            if newSector:
-                print(f"Sector {sector} creado");
-                return True;
-            else:
-                return f"Error al crear el sector {sector}";
+        # else:
+            
     def editSector(self,created_by, ID, newSectorName, newActive):
         """Permite editar el nombre y la visibilidad del sector"""
-        newSectorName = newSectorName.upper().strip();
+        newSectorName = newSectorName.strip();
         created_by = created_by.lower().strip();
         newActive = newActive;
         ID = ID;
         
         newData = Sector.select(Sector.q.id == ID);
-        
-        if newSectorName == "":
-            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} del sector {newData[0].s_name}", action = 'UPDATE', time = self.newTime())
-            newData[0].active = newActive;
-        if newSectorName.count() > 0:
-            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {newData[0].s_name} a {newSectorName}", action = 'UPDATE', time = self.newTime())
-            newData[0].active = newActive;
-            newData[0].s_name = newSectorName;
+        if(newData.count() > 0):
+            if newSectorName == "":
+                Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} del sector {newData[0].s_name}", action = 'UPDATE', time = self.newTime())
+                newData[0].active = newActive;
+            else:
+                Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {newData[0].s_name} a {newSectorName}", action = 'UPDATE', time = self.newTime())
+                newData[0].active = newActive;
+                newData[0].s_name = newSectorName;
+        else:
+            newSector = Sector(s_name = f"{newSectorName}", active = 1);
+            sectorId = newSector.id;
+            self.addOrEditProducts("Test",0,sectorId,"Null",1233,0);
+            Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {newSectorName}", action = 'INSERT', time = self.newTime())
             
+            # if newSector:
+            #     print(f"Sector {newSectorName} creado");
+            #     return True;
+            # else:
+            #     return f"Error al crear el sector {newSectorName}";
             
     def getAllSector(self):
         """Se trae todos los sectores"""
