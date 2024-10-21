@@ -197,6 +197,7 @@ body {
   .Product{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    padding: 8px;
   }
   .relative{
     position: relative;

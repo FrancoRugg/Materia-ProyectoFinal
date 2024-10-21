@@ -39,40 +39,89 @@ function makeRequest(method, url, data = '', isBlob = false) {
         }
     });
 }
-function getFetch(url, method = 'GET', bodyData = null) {
-    // Configurar los headers
+function getFetchJSON(url, method = 'GET', bodyData = null) {
     const headers = {
-        'Content-Type': 'text/plain' // Cambiado a texto plano
+        'Content-Type': 'application/json'  // Cambiar a JSON
     };
 
-    // Configurar las opciones para el fetch
     let options = {
         method: method,
         headers: headers,
     };
 
-    // Si hay datos a enviar, agregarlos al body
     if (bodyData) {
-        options.body = bodyData; // No necesitas JSON.stringify para texto
+        options.body = bodyData;
     }
 
-    // Ejecutar el fetch
     return fetch(url, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error en la solicitud: ${response.statusText}`);
             }
-            return response.text();  // Parsear la respuesta como texto
-        })
-        .then(text => {
-            // console.log('Respuesta recibida:', text);  // Mostrar la respuesta como texto
-            return text;
+            return response.json();  // Parsear la respuesta como JSON
         })
         .catch(error => {
             console.error('Error en la solicitud:', error);
         });
 }
+// function getFetch(url, method = 'GET', bodyData = null) {
+//     // Configurar los headers
+//     const headers = {
+//         'Content-Type': 'text/plain' // Cambiado a texto plano
+//     };
 
+//     // Configurar las opciones para el fetch
+//     let options = {
+//         method: method,
+//         headers: headers,
+//     };
+
+//     // Si hay datos a enviar, agregarlos al body
+//     if (bodyData) {
+//         options.body = bodyData; // No necesitas JSON.stringify para texto
+//     }
+
+//     // Ejecutar el fetch
+//     return fetch(url, options)
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`Error en la solicitud: ${response.statusText}`);
+//             }
+//             return response.text();  // Parsear la respuesta como texto
+//         })
+//         .then(text => {
+//             // console.log('Respuesta recibida:', text);  // Mostrar la respuesta como texto
+//             return text;
+//         })
+//         .catch(error => {
+//             console.error('Error en la solicitud:', error);
+//         });
+// }
+function getFetch(url, method = 'GET', bodyData = null) {
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'  // Cambia a URL encoded
+    };
+
+    let options = {
+        method: method,
+        headers: headers,
+    };
+
+    if (bodyData) {
+        options.body = bodyData;
+    }
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+            }
+            return response.text();
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+        });
+}
 
 // function openLoad() {
 //     document.querySelector('.loadingContainer2').style.display = 'block';

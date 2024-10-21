@@ -38,6 +38,106 @@ function getRol() {
 //     #         # print('--------------------------');
 //     #         # print(single)
 //     #         title = single.s_name
+
+const edit_product = document.getElementById('edit_product');
+if (edit_product) {
+    edit_product.addEventListener('click', () => {
+        const conf = confirm('Desea editar el producto?');
+        if (conf == true) {
+            // openLoad();
+            let get_id = document.getElementById('get_p_id').value;
+            let section = document.querySelectorAll('#set_p_section')[0].value;
+            let set_product = document.getElementById('set_product').value;
+            let set_price = document.getElementById('set_price').value;
+            let active = document.querySelectorAll('#set_p_active')[0].value;
+
+            if (section === "") {
+                alert('Es necesario completar todos los campos');
+                return;
+            }
+
+            // data = "ID=" + get_id;
+            // data += "&sectorID=" + section;
+            // data += "&p_name=" + set_product;
+            // data += "&p_price=" + set_price;
+            // data += "&active=" + active;
+            let data = {
+                "ID": get_id,
+                "sectorID": section,
+                "p_name": set_product,
+                "p_price": set_price,
+                "active": active
+            };
+
+            console.log(data);
+            // return;
+            set_error = document.getElementById('p_error');
+            try {
+                getFetchJSON('/editProduct', 'POST', JSON.stringify(data))
+                    .then((res) => {
+                        if (res) {
+                            getSections();
+                        }
+                    });
+            } catch (error) {
+                set_error.textContent = "Error: " + error;
+            }
+
+        } else {
+            alert('Accion cancelada');
+        }
+    });
+}
+const add_product = document.getElementById('send_product');
+if (add_product) {
+    add_product.addEventListener('click', () => {
+        const conf = confirm('Desea agregar un nuevo producto?');
+        if (conf == true) {
+            // openLoad();
+            let get_id = 0;
+            let section = document.querySelectorAll('#set_p_section')[0].value;
+            let set_product = document.getElementById('set_product').value;
+            let set_price = document.getElementById('set_price').value;
+            let active = 1;
+
+            if (section === "") {
+                alert('Es necesario completar todos los campos');
+                return;
+            }
+
+            // data = "ID=" + get_id;
+            // data += "&sectorID=" + section;
+            // data += "&p_name=" + set_product;
+            // data += "&p_price=" + set_price;
+            // data += "&active=" + active;
+            let data = {
+                "ID": get_id,
+                "sectorID": section,
+                "p_name": set_product,
+                "p_price": set_price,
+                "active": active
+            };
+
+            console.log(data);
+            // return;
+            set_error = document.getElementById('p_error');
+            try {
+                getFetchJSON('/editProduct', 'POST', JSON.stringify(data))
+                    .then((res) => {
+                        if (res) {
+                            getSections();
+                        }
+                    });
+            } catch (error) {
+                set_error.textContent = "Error: " + error;
+            }
+
+        } else {
+            alert('Accion cancelada');
+        }
+    });
+}
+
 async function getSections() {
     const data_home = document.querySelector('.data-home');
     const rol = getRol();
@@ -121,6 +221,7 @@ async function getSections() {
         console.error('Error:', error);
     }
 }
+
 
 function openAndCloseSection() {
 
@@ -353,6 +454,8 @@ async function getOptionsFromSections() {
     }
 
 }
+
+
 
 function getProducts(sectorId) {
     getFetch(`/getProducts?sectorId=${sectorId}`, 'GET')

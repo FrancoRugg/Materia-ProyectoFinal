@@ -1,6 +1,6 @@
 import sqlobject as SO;
 import os;
-import datetime;
+from datetime import datetime
 import bcrypt;
 # pip install bcrypt
 
@@ -89,8 +89,8 @@ class BddMethods:
         return bcrypt.checkpw(password, hash)  # Retorna True si coinciden, False si no
     def newTime(self):
         """Trae tiempo en timestamps"""
-        time = datetime.now().timestamp()
-        return time;
+        current_time = datetime.now().timestamp()
+        return current_time
     
     def getUser(self,userName, password):
         """Se trae el usuario consultado"""
@@ -116,28 +116,30 @@ class BddMethods:
         
         if get.count() > 0:
             Logs(created_by = f"{created_by}",obs =  f"Buscó el sector {sector}", action = 'GET', time = self.newTime())
-            return get[0].s_name;
+            print(get[0].s_name);
+            return False;
         else:
             newSector = Sector(s_name = f"{sector}", active = 1);
             Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {sector}", action = 'INSERT', time = self.newTime())
             if newSector:
-                return f"Sector {sector} creado";
+                print(f"Sector {sector} creado");
+                return True;
             else:
                 return f"Error al crear el sector {sector}";
-    def editSector(self,created_by, sector, newSectorName, newActive):
+    def editSector(self,created_by, ID, newSectorName, newActive):
         """Permite editar el nombre y la visibilidad del sector"""
-        sector = sector.upper().strip();
         newSectorName = newSectorName.upper().strip();
         created_by = created_by.lower().strip();
         newActive = newActive;
+        ID = ID;
         
-        newData = Sector.select(Sector.q.s_name == sector);
+        newData = Sector.select(Sector.q.id == ID);
         
         if newSectorName == "":
-            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} del sector {sector}", action = 'UPDATE', time = self.newTime())
+            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} del sector {newData[0].s_name}", action = 'UPDATE', time = self.newTime())
             newData[0].active = newActive;
         if newSectorName.count() > 0:
-            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {sector} a {newSectorName}", action = 'UPDATE', time = self.newTime())
+            Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {newData[0].s_name} a {newSectorName}", action = 'UPDATE', time = self.newTime())
             newData[0].active = newActive;
             newData[0].s_name = newSectorName;
             
@@ -175,7 +177,44 @@ class BddMethods:
             return getAll
         else:
             return None
-    
+        
+    def addOrEditProducts(self, created_by, ID, sectorId, name, price, active):
+        """Crea o edita productos"""
+        created_by = created_by.lower().strip();
+        name = name;
+        price = price;
+        active = active;
+        sectorId = sectorId;
+        ID = ID;
+        
+        # sector = SO.ForeignKey("Sector", default = None, cascade = False);
+        # p_name = SO.StringCol(length = 40);
+        # p_price = SO.IntCol();
+        # active = SO.IntCol();
+        get = Products.select(Products.q.id == ID);
+        obs = "";
+        if get.count() > 0:
+            obs = f"Modificó un producto "
+            # obs = "Creó un nuevo producto"
+            if get[0].p_name != name:
+                obs += f"-Nombre: {get[0].p_name} a {name} "
+            if get[0].p_price != price:
+                obs += f"-Precio: {get[0].p_price} a {price} "
+            if get[0].active != active:
+                obs += f"-Active: {get[0].active} a {active} "
+            if get[0].sectorID != sectorId:
+                obs += f"-sectorId: {get[0].sectorID} a {sectorId} "
+            Logs(created_by = f"{created_by}",obs = obs, action = 'UPDATE', time = self.newTime())
+            get[0].p_name = name;
+            get[0].p_price = price;
+            get[0].active = active;
+            get[0].sectorID = sectorId;
+        else:
+            newProduct = Products(p_name = f"{name}",sectorID = sectorId, p_price = price, active = active);
+            if newProduct:
+                obs = f"Creó el producto {name}, con Precio: {price} y Active: {active}"
+                Logs(created_by = f"{created_by}",obs = obs, action = 'INSERT', time = self.newTime())
+                
     # MODO DE USO
         #     transactions = getTransactions(self, "user1", since, until)
         # for transaction in transactions:
@@ -206,40 +245,8 @@ class BddMethods:
         
         if newTransaction:
             Logs(created_by = f"{created_by}",obs =  f"Creó una nueva Transacción", action = 'INSERT', time = self.newTime())
-            return newTransaction[0].id
+            return newTransaction[0].id;
         
-    def addOrEditProducts(self, created_by, name, price, active):
-        """Crea o edita productos"""
-        created_by = created_by.lower().strip();
-        name = name;
-        price = price;
-        active = active;
-        
-        # sector = SO.ForeignKey("Sector", default = None, cascade = False);
-        # p_name = SO.StringCol(length = 40);
-        # p_price = SO.IntCol();
-        # active = SO.IntCol();
-        get = Products.select(Products.q.p_name == name);
-        obs = "";
-        if get.count() > 0:
-            obs = f"Modificó un producto "
-            # obs = "Creó un nuevo producto"
-            if get[0].p_name != name:
-                obs += f"-Nombre: {get[0].p_name} a {name} "
-            if get[0].p_price != price:
-                obs += f"-Precio: {get[0].p_price} a {price} "
-            if get[0].active != active:
-                obs += f"-Active: {get[0].active} a {active} "
-            Logs(created_by = f"{created_by}",obs = obs, action = 'UPDATE', time = self.newTime())
-            get[0].p_name = name;
-            get[0].p_price = price;
-            get[0].active = active;
-        else:
-            newProduct = Products(p_name = f"{name}", p_price = price, active = active);
-            if newProduct:
-                obs = f"Creó el producto {name}, con Precio: {price} y Active: {active}"
-                Logs(created_by = f"{created_by}",obs = obs, action = 'INSERT', time = self.newTime())
-                
     def getLogs(self):
         created_by = created_by.lower().strip();
         get = Logs.select(True == True);

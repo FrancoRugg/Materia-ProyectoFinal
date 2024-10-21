@@ -1,6 +1,8 @@
 from flask import Flask,redirect,session,render_template,request,send_from_directory,jsonify;
 import os;
 from Model import bdd
+from datetime import timedelta
+
 
 
 app = Flask(__name__,template_folder="templates",static_folder="static"); #Nombre de la App y Ubicación de los archivos .HTML
@@ -10,6 +12,8 @@ secret = conn.hashPassword("1234");
 # print(secret);
 app.secret_key = secret;
 # Users;
+# Establece el tiempo de duración de la sesión (ejemplo: 1 día)
+app.permanent_session_lifetime = timedelta(days=1)
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     # return "<h1>Welcome</h1>";
@@ -83,6 +87,33 @@ def Home():
 @app.route("/setCuil", methods=['POST'])#Preguntar como acceder directamente a las funciones
 def setCuil():
     pass;
+@app.route("/editProduct", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
+def editProduct():
+    create_by = session.get('name', 'invitado')
+    data = request.get_json()
+    
+    ID = data.get('ID');
+    sectorID = int(data.get('sectorID'));
+    p_name = data.get('p_name');
+    p_price = int(data.get('p_price'));
+    p_active = int(data.get('active'));
+    
+    res = conn.addOrEditProducts(create_by, ID, sectorID, p_name, p_price, p_active)
+    # return res;
+    return {"status": "success", "result": res}
+    
+@app.route("/editSection", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
+def editSection():
+    create_by = session.get('name', 'invitado')
+    data = request.json
+    sector = data.get('s_name')
+    
+    exist = conn.getOrCreateSector(create_by,sector);
+    if(exist == False):
+        ID = data.get('ID')
+        active = data.get('active');
+        res = conn.editSector(create_by,ID,sector,active);
+        # return res;
 @app.route("/getSectorData", methods=['GET'])
 def getSectorData():
     all = conn.getAllSector();
