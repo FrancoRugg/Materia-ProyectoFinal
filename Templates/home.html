@@ -106,23 +106,23 @@
         <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
         <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
         <div class="title skeleton">
-          <h2 class="skeleton">Title</h2>
-          <div class="s_edit skeleton" id="s_id">
+          <h2 class="skeleton transparent">Title</h2>
+          <div class="s_edit skeleton transparent" id="s_id">
             <i class='bx bxs-edit skeleton'></i>
           </div>
         </div>
         <div class="products skeleton">
           {% for i in range(1, 5) %}
-          <article class="Product skeleton">
+          <article class="Product skeleton transparent">
             <div>
-              <div class="p_edit skeleton">
-                <i class='bx bxs-edit skeleton'></i>
+              <div class="p_edit skeleton transparent">
+                <i class='bx bxs-edit skeleton transparent'></i>
               </div>
-              <p class="p_name skeleton">Name</p>
-              <p class="p_price skeleton">Price</p>
+              <p class="p_name skeleton transparent">Name</p>
+              <p class="p_price skeleton transparent">Price</p>
             </div>
-            <div class="skeleton">
-              <button type="button skeleton" id="p_id">Add</button>
+            <div class="skeleton transparent">
+              <button class="transparent" type="button" id="p_id">Add</button>
             </div>
           </article>
           {% endfor %}

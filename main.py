@@ -31,6 +31,9 @@ def login():
     return render_template("login.html");
 @app.route("/home", methods = ['GET', 'POST'])
 def Home():
+    #=================================================
+    session["rol"] = 1;#CAMBIAR
+                #=================================================
     # if request.method == "POST":
     #     try:
     #         print(request.form.get('dni'))
@@ -130,7 +133,7 @@ def getProducts():
     if all.count() > 0:
         product_list = [{'id': p.id, 'name': p.p_name, 'price': p.p_price, 'active': p.active} for p in all]  # Convierte a lista de diccionarios
     else:
-        product_list = [{'id': 0, 'name': "N", 'price': '$', 'active': 0} for p in all]  # Convierte a lista de diccionarios
+        product_list = [{'id': None, 'name': "", '': '', 'active': 0} for p in all]  # Convierte a lista de diccionarios
 
     return jsonify(product_list)  # Devuelve como JSON
     return all;

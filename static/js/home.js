@@ -69,13 +69,15 @@ if (edit_product) {
                 "active": active
             };
 
-            console.log(data);
+            // console.log(data);
             // return;
             set_error = document.getElementById('p_error');
             try {
                 getFetchJSON('/editProduct', 'POST', JSON.stringify(data))
                     .then((res) => {
                         if (res) {
+                            // console.log(res.result);
+                            set_error.textContent = res.result;
                             getSections();
                         }
                     });
@@ -111,20 +113,21 @@ if (add_product) {
             // data += "&p_price=" + set_price;
             // data += "&active=" + active;
             let data = {
-                "ID": get_id,
                 "sectorID": section,
                 "p_name": set_product,
                 "p_price": set_price,
                 "active": active
             };
 
-            console.log(data);
+            // console.log(data);
             // return;
             set_error = document.getElementById('p_error');
             try {
                 getFetchJSON('/editProduct', 'POST', JSON.stringify(data))
                     .then((res) => {
                         if (res) {
+                            // console.log(res.result);
+                            set_error.textContent = res.result;
                             getSections();
                         }
                     });
@@ -164,18 +167,20 @@ if (add_section) {
             // data += "&p_price=" + set_price;
             // data += "&active=" + active;
             let data = {
-                "ID": 0,
                 "s_name": section,
                 "active": active
             };
 
-            console.log(data);
+            // console.log(data);
             // return;
-            set_error = document.getElementById('p_error');
+            set_error = document.getElementById('error');
             try {
                 getFetchJSON('/editSection', 'POST', JSON.stringify(data))
                     .then((res) => {
                         if (res) {
+                            // r = JSON.parse(res);
+                            // console.log(res.result);
+                            set_error.textContent = res.result;
                             getSections();
                         }
                     });
@@ -214,13 +219,15 @@ if (edit_section) {
                 "active": active
             };
 
-            console.log(data);
+            // console.log(data);
             // return;
-            set_error = document.getElementById('p_error');
+            set_error = document.getElementById('error');
             try {
                 getFetchJSON('/editSection', 'POST', JSON.stringify(data))
                     .then((res) => {
                         if (res) {
+                            // console.log(res.result);
+                            set_error.textContent = res.result;
                             getSections();
                         }
                     });
@@ -284,9 +291,11 @@ async function getSections() {
                         const p_price = p.price;
                         const p_active = p.active;
 
+                        let none = (p_name == "" || p_name == null) ? 'off' : "";
+
                         if (rol == 1 && p_active == 0 || p_active == 1) {
                             productsHTML += `
-                                <article class="Product">
+                                <article class="Product ${none}">
                                     <div>
                                         <div class="p_edit ${visible}" data-id="${p_id}" data-p_name="${p_name}" data-p_id_section="${p_id_section}" data-p_section="${p_section}" data-p_price="${p_price}" data-p_active="${p_active}">
                                             <i class='bx bxs-edit'></i>
@@ -350,6 +359,9 @@ function openAndCloseSection() {
             get_id.value = "";
             const set_section = document.getElementById('set_section');
             set_section.value = "";
+
+            set_error = document.getElementById('error');
+            set_error.textContent = "";
         })
     }
     //Abre ventana de secciones
@@ -442,6 +454,9 @@ function openAndCloseProduct() {
             set_product.value = "";
             const set_price = document.getElementById('set_price');
             set_price.value = "";
+
+            set_error = document.getElementById('p_error');
+            set_error.textContent = "";
 
             // let p_section = document.querySelectorAll('#set_p_section option');
             // if (p_section) {

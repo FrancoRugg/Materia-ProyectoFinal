@@ -133,16 +133,23 @@ class BddMethods:
                 Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} del sector {newData[0].s_name}", action = 'UPDATE', time = self.newTime())
                 newData[0].active = newActive;
             else:
-                Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {newData[0].s_name} a {newSectorName}", action = 'UPDATE', time = self.newTime())
-                newData[0].active = newActive;
-                newData[0].s_name = newSectorName;
+                exist = Sector.select(SO.AND(Sector.q.s_name == newSectorName, Sector.q.id != ID));
+                if exist.count() <= 0:
+                    Logs(created_by = f"{created_by}",obs =  f"Editó el campo active {newData[0].active} a {newActive} y el nombre del sector {newData[0].s_name} a {newSectorName}", action = 'UPDATE', time = self.newTime())
+                    newData[0].active = newActive;
+                    newData[0].s_name = newSectorName;
+                else: 
+                    return "Error: Sector Existente!";
         else:
             exist = Sector.select(Sector.q.s_name == newSectorName);
-            if exist.count() < 0:
-                newSector = Sector(s_name = f"{newSectorName}", active = 1);
+            if exist.count() <= 0:
+                newSector = Sector(s_name = newSectorName, active = 1);
                 sectorId = newSector.id;
-                self.addOrEditProducts("Test",0,sectorId,"Null",1233,0);
+                p_random = Products(p_name = "",sectorID = sectorId, p_price = 0, active = 0);
+                # self.addOrEditProducts("Test",0,sectorId,"Null",1233,0);
                 Logs(created_by = f"{created_by}",obs =  f"Agregó el sector {newSectorName}", action = 'INSERT', time = self.newTime())
+            else: 
+                return "Error: Sector Existente!";
             
             # if newSector:
             #     print(f"Sector {newSectorName} creado");
@@ -200,28 +207,34 @@ class BddMethods:
         get = Products.select(Products.q.id == ID);
         obs = "";
         if get.count() > 0:
-            obs = f"Modificó un producto "
-            # obs = "Creó un nuevo producto"
-            if get[0].p_name != name:
-                obs += f"-Nombre: {get[0].p_name} a {name} "
-            if get[0].p_price != price:
-                obs += f"-Precio: {get[0].p_price} a {price} "
-            if get[0].active != active:
-                obs += f"-Active: {get[0].active} a {active} "
-            if get[0].sectorID != sectorId:
-                obs += f"-sectorId: {get[0].sectorID} a {sectorId} "
-            Logs(created_by = f"{created_by}",obs = obs, action = 'UPDATE', time = self.newTime())
-            get[0].p_name = name;
-            get[0].p_price = price;
-            get[0].active = active;
-            get[0].sectorID = sectorId;
+            exist = Products.select(SO.AND(Products.q.p_name == name,Products.q.id != ID));
+            if exist.count() <= 0:
+                obs = f"Modificó un producto "
+                # obs = "Creó un nuevo producto"
+                if get[0].p_name != name:
+                    obs += f"-Nombre: {get[0].p_name} a {name} "
+                if get[0].p_price != price:
+                    obs += f"-Precio: {get[0].p_price} a {price} "
+                if get[0].active != active:
+                    obs += f"-Active: {get[0].active} a {active} "
+                if get[0].sectorID != sectorId:
+                    obs += f"-sectorId: {get[0].sectorID} a {sectorId} "
+                Logs(created_by = f"{created_by}",obs = obs, action = 'UPDATE', time = self.newTime())
+                get[0].p_name = name;
+                get[0].p_price = price;
+                get[0].active = active;
+                get[0].sectorID = sectorId;
+            else:
+                return "Error: Producto Existente";
         else:
             exist = Products.select(Products.q.p_name == name);
-            if exist.count() < 0:
+            if exist.count() <= 0:
                 newProduct = Products(p_name = f"{name}",sectorID = sectorId, p_price = price, active = active);
                 if newProduct:
                     obs = f"Creó el producto {name}, con Precio: {price} y Active: {active}"
                     Logs(created_by = f"{created_by}",obs = obs, action = 'INSERT', time = self.newTime())
+            else:
+                return "Error: Producto Existente";
                 
     # MODO DE USO
         #     transactions = getTransactions(self, "user1", since, until)
