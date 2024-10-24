@@ -78,7 +78,9 @@ if (edit_product) {
                         if (res) {
                             // console.log(res.result);
                             set_error.textContent = res.result;
-                            getSections();
+                            if (res.result == null || res.result == "") {
+                                getSections();
+                            }
                         }
                     });
             } catch (error) {
@@ -102,7 +104,7 @@ if (add_product) {
             let set_price = document.getElementById('set_price').value;
             let active = 1;
 
-            if (section === "" || set_product === "" || set_price === "") {
+            if (section == "" || section == 0 || set_product === "" || set_product === null || set_price === "" || set_price === null) {
                 alert('Es necesario completar todos los campos');
                 return;
             }
@@ -126,9 +128,11 @@ if (add_product) {
                 getFetchJSON('/editProduct', 'POST', JSON.stringify(data))
                     .then((res) => {
                         if (res) {
-                            // console.log(res.result);
+                            console.log(res.result);
                             set_error.textContent = res.result;
-                            getSections();
+                            if (res.result == null || res.result == "") {
+                                getSections();
+                            }
                         }
                     });
             } catch (error) {
@@ -181,7 +185,9 @@ if (add_section) {
                             // r = JSON.parse(res);
                             // console.log(res.result);
                             set_error.textContent = res.result;
-                            getSections();
+                            if (res.result == null || res.result == "") {
+                                getSections();
+                            }
                         }
                     });
             } catch (error) {
@@ -228,7 +234,9 @@ if (edit_section) {
                         if (res) {
                             // console.log(res.result);
                             set_error.textContent = res.result;
-                            getSections();
+                            if (res.result == null || res.result == "") {
+                                getSections();
+                            }
                         }
                     });
             } catch (error) {
@@ -567,7 +575,21 @@ async function getOptionsFromSections() {
 
 }
 
-
+const cart = document.getElementById('see_cart');
+if (cart) {
+    cart.addEventListener('click', () => {
+        const data_cart = document.querySelector('.data-cart');
+        const cart_container = document.querySelector('.cart-container');
+        if (data_cart) {
+            data_cart.classList.toggle('off');
+            // cart.classList.toggle('all_cart');
+        }
+        if (cart_container) {
+            // cart_container.classList.toggle('off');
+            cart_container.classList.toggle('all_cart');
+        }
+    })
+}
 
 function getProducts(sectorId) {
     getFetch(`/getProducts?sectorId=${sectorId}`, 'GET')
@@ -581,10 +603,10 @@ function getProducts(sectorId) {
 }
 
 function openLoad() {
-    console.log('Open')
+    // console.log('Open')
     document.querySelector('.loadingContainer2').style.display = 'block';
 }
 function closeLoad() {
-    console.log('Close')
+    // console.log('Close')
     document.querySelector('.loadingContainer2').style.display = 'none';
 }

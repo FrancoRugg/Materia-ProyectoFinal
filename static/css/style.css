@@ -264,7 +264,84 @@ body {
   .p_price{
     color: gray;
   }
+  /* -----------------Cart--------------------- */
+.cart-container{
+  position: absolute;
+  RIGHT: 0%;
+  TOP: 13%;
+  WIDTH: 9vw;
+  height: 9vh;
+  margin: 0.5%;
+  z-index: 9;
+}
+.all_cart{
+  WIDTH: 21vw !important;
+  height: 61vh !important;
+}
+.cart{
+  place-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0px;
+  margin: auto;
+  width: 83%;
+  height: 100%;
+}
+#see_cart{
+  font-size: 26px;
+  border-bottom: solid 1px lightgrey;
+  width: 100%;
+}
+.data-cart article{
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 5px;
+  place-items: center;
+}
+#all_items{
+  width: 50%;
+}
+.only-cart{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  place-items: center;
+  /* width: 33%; */
+  /* max-width: 80%; */
 
+}
+#generateTicket{
+  width: 93%;
+}
+.cart-selected{
+  max-height: 39vh;
+  overflow: scroll;
+}
+.cart-name{
+  width: 33%;
+  margin: 5px;
+}
+.cart-price{
+  width: 33%;
+  margin: 5px;
+}
+.cart-cant{
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  align-items: center;
+  gap: 3px;
+  margin: 5px;
+}
+.cart-cant label{
+  font-size: 11px;
+}
+.cart-cant input{
+  height: 4vh;
+  width: 5vw;
+}
 
   /* -------------------LOADING---------------------- */
   .loadingContainer2{
@@ -422,135 +499,3 @@ body {
       background-position: 0% 50%
   }
 }
-
-/* .loadingContainer2{
-  position: fixed;
-  z-index: 9999;
-  background-color: #dddddd78;
-  width: 100vw;
-  height: 100vh;
-  text-align: center;
-  display:none;
-} */
-/* .loadingContainer2 section .textContainer1,
-.loadingContainer2 section .textContainer2,
-.loadingContainer2 section .textContainer3,
-.loadingContainer2 section .textContainer4,
-.loadingContainer2 section .textContainer5,
-.loadingContainer2 section .textContainer6,
-.loadingContainer2 section .textContainer7,
-.loadingContainer2 section .textContainer8,
-.loadingContainer2 section .textContainer9,
-.loadingContainer2 section .textContainer10,
-.loadingContainer2 section .textContainer11,
-.loadingContainer2 section .textContainer12,
-.loadingContainer2 section .textContainer13,
-.loadingContainer2 section .textContainer14,
-.loadingContainer2 section .textContainer15{
-  width: 189px;
-  height: 46px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  /* border: solid 1px var(--toggle-color); */
-  /* border-radius: 7px; */
-  /* padding: 9px; */
-  /* background: var(--toggle-color); */
-  /* text-align: center; */
-/* } */
-/* .textContainer1{
-  color: rgb(27 156 195 / 55%);
-  animation: increaseFontAnimation 1.5s infinite alternate;
-  left: 65% !important;
-  top: 30% !important;
-} */
-/* .textContainer2{
-  color: rgb(0 196 255 / 60%);
-  animation: increaseFontAnimation 1.7s infinite alternate;
-  left: 66% !important;
-  top: 48% !important;
-}
-.textContainer3{
-  color: rgb(0 196 255 / 65%);
-  animation: increaseFontAnimation 2.5s infinite alternate;
-  left: 34% !important;
-  top: 32% !important;
-}
-.textContainer4{
-  color: rgb(0 196 255 / 70%);
-  animation: increaseFontAnimation 2.1s infinite alternate;
-  left: 34% !important;
-  top: 51% !important;
-}
-.textContainer5{
-  color: rgb(0 196 255 / 75%);
-  animation: increaseFontAnimation 2.3s infinite alternate;
-  top: 65% !important;
-  left: 47% !important;
-}
-.textContainer6{
-  color: rgba(0, 196, 255, 1);
-  animation: increaseFontAnimation 1.9s infinite alternate;
-} */
-/* .textContainer7{
-  color: rgb(27 156 195 / 55%);
-  animation: increaseFontAnimation 1.2s infinite alternate;
-  left: 84% !important;
-  top: 23% !important;
-}
-.textContainer8{
-  color: rgb(0 196 255 / 60%);
-  animation: increaseFontAnimation 1.9s infinite alternate;
-  left: 83% !important;
-  top: 64% !important;
-}
-.textContainer9{
-  color: rgb(0 196 255 / 65%);
-  animation: increaseFontAnimation 2.2s infinite alternate;
-  left: 15% !important;
-  top: 22% !important;
-}
-.textContainer10{
-  color: rgb(0 196 255 / 70%);
-  animation: increaseFontAnimation 1s infinite alternate;
-  left: 15% !important;
-  top: 58% !important;
-}
-.textContainer11{
-  color: rgb(0 196 255 / 75%);
-  animation: increaseFontAnimation 2s infinite alternate;
-  top: 78% !important;
-  left: 60% !important;
-}
-.textContainer12{
-  color: rgb(0 196 255 / 80%);
-  animation: increaseFontAnimation 1.6s infinite alternate;
-  top: 16% !important;
-}
-.textContainer13{
-  color: rgb(0 196 255 / 85%);
-  animation: increaseFontAnimation 1.6s infinite alternate;
-  top: 39% !important;
-  left: 83% !important;
-}
-.textContainer14{
-  color: rgb(0 196 255 / 90%);
-  animation: increaseFontAnimation 1.6s infinite alternate;
-  top: 79% !important;
-  left: 18% !important;
-}
-.textContainer15{
-  color: rgb(0 196 255 / 95%);
-  animation: increaseFontAnimation 1.6s infinite alternate;
-  top: 40% !important;
-  left: 10% !important;
-} */
- /* @keyframes increaseFontAnimation {
-  from {
-      font-size: 0px;
-  }
-  to {
-      font-size: 31px;
-  }
-}  */
-
