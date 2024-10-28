@@ -2,6 +2,7 @@ window.onload = () => {
     // openLoad();
     getSections()
     getOptionsFromSections();
+    oneMoreToCart();
 }
 document.addEventListener('DOMContentLoaded', () => {
     // closeLoad();
@@ -311,8 +312,8 @@ async function getSections() {
                                         <p class="p_name">${p_name}</p>
                                         <p class="p_price">${p_price}</p>
                                     </div>
-                                    <div>
-                                        <button type="button" id="${p_id}">Add</button>
+                                    <div id="add_product">
+                                        <button type="button" id="${p_id}" data-p_name="${p_name}" data-p_price="${p_price}">Add</button>
                                     </div>
                                 </article>
                             `;
@@ -329,6 +330,7 @@ async function getSections() {
         data_home.innerHTML = sectionsHTML;
         openAndCloseProduct();
         openAndCloseSection();
+        oneMoreToCart();
         closeLoad()
     } catch (error) {
         closeLoad()
@@ -589,6 +591,108 @@ if (cart) {
             cart_container.classList.toggle('all_cart');
         }
     })
+}
+
+function updateTotal() {
+    const all_items = document.getElementById('cantidad_total');
+    const precio = document.getElementById('precio_total');
+    let totalQuantity = 0;
+    let totalPrice = 0;
+
+    const quantityInputs = document.querySelectorAll('.cart-cant input[type="number"]');
+    // Selecciona todos los precios
+    const priceElements = document.querySelectorAll('.cart-price');
+
+    quantityInputs.forEach((input, index) => {
+        const quantity = parseInt(input.value) || 0;
+        // Eliminar caracteres no numéricos
+        const price = parseFloat(priceElements[index].textContent.replace(/[^0-9.-]+/g, "")) || 0;
+
+        if (quantity > 0 && price > 0) {
+            totalQuantity += quantity;
+            totalPrice += quantity * price;
+        }
+    });
+
+    all_items.dataset.total = totalQuantity;
+    precio.dataset.total_price = totalPrice;
+    all_items.textContent = `Total: ${totalQuantity}`;
+    precio.textContent = `${totalPrice}`;
+    // console.log(total); 
+    // console.log(`Total Quantity: ${totalQuantity}, Total Price: ${totalPrice.toFixed(2)}`);
+}
+function oneMoreToCart() {
+    const add_product = document.querySelectorAll('#add_product button');
+    const cart = document.getElementsByClassName('cart-selected')[0]; // Asegúrate de que existe un carrito
+
+    if (!cart) {
+        console.error("Carrito no encontrado");
+        return;
+    }
+    let children = cart.children;
+    // console.log(children.length);
+
+    add_product.forEach(elem => {
+        elem.addEventListener('click', () => {
+            const pre_cart = document.querySelectorAll('.pre-cart');
+            // console.log(elem.id);
+            // let children = cart.children;
+            // console.log(children.length);
+            let id = elem.id;
+            let name = elem.dataset.p_name;
+            let price = elem.dataset.p_price;
+
+            let existingProduct = document.getElementById(`p_${id}`);
+            for (let index = 0; index < 4; index++) {
+                pre_cart[index].classList.add('off');
+            }
+
+            // pre_cart.classList.add('off');
+            if (existingProduct) {
+                let quantityInput = existingProduct;
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateTotal();
+            } else {
+                let article = document.createElement('article');
+                article.classList.add('only-cart');
+
+                let nameElement = document.createElement('p');
+                nameElement.classList.add('cart-name');
+                nameElement.textContent = name;
+
+                let priceElement = document.createElement('p');
+                priceElement.classList.add('cart-price');
+                priceElement.textContent = price;
+
+                let div = document.createElement('div');
+                div.classList.add('cart-cant');
+
+                let label = document.createElement('label');
+                label.setAttribute('for', 'total');
+                label.textContent = 'Cantidad';
+
+                let input = document.createElement('input');
+                input.type = 'number';
+                input.name = 'total';
+                input.min = '0';
+                input.value = '1';
+                input.id = `p_${id}`;
+
+                //Agrega un OnChange para que lo tomo cada que se llama a la función
+                input.addEventListener('change', updateTotal);
+
+                div.appendChild(label);
+                div.appendChild(input);
+
+                article.appendChild(nameElement);
+                article.appendChild(priceElement);
+                article.appendChild(div);
+
+                cart.appendChild(article);
+                updateTotal();
+            }
+        });
+    });
 }
 
 function getProducts(sectorId) {

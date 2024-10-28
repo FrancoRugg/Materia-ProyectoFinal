@@ -109,65 +109,25 @@
         <div class="data-cart off">
           <article>
             <div id="all_items">
-              <p>Total: 10</p>
+              <p id="cantidad_total" data-total="0">Total: 0</p>
+              <!-- <p id="precio_total" data-total_price="0">Total: 0</p> -->
             </div>
             <div class="cart-selected">
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
+              {% for i in range(1, 5) %}
+              <article class="only-cart skeleton pre-cart" id="pre_{{ i }}">
+                <p class="cart-name skeleton">Name</p>
+                <p class="cart-price skeleton">Price</p>
+                <div class="cart-cant skeleton">
                   <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
+                  <input type="number" name="total" min="0" id="total" disabled>
                 </div>
               </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
-              <article class="only-cart">
-                <p class="cart-name">Name</p>
-                <p class="cart-price">Price</p>
-                <div class="cart-cant">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" id="total">
-                </div>
-              </article>
+              {% endfor %}
+            </div>
+            <div id="all_items2">
+              <!-- <p id="cantidad_total" data-total="0">Cant: 0</p> -->
+              <p id="total_name">Precio: </p>
+              <p id="precio_total" data-total_price="0">0</p>
             </div>
             <div id="generateTicket">
               <button type="button">Generar Factura</button>

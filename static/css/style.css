@@ -276,7 +276,7 @@ body {
 }
 .all_cart{
   WIDTH: 21vw !important;
-  height: 61vh !important;
+  height: 64vh !important;
 }
 .cart{
   place-items: center;
@@ -299,9 +299,23 @@ body {
   grid-template-rows: auto 1fr auto;
   gap: 5px;
   place-items: center;
+  border-bottom: solid 1px #d3d3d363;
 }
 #all_items{
   width: 50%;
+}
+#all_items2{
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* flex-wrap: nowrap; */
+  gap: 6px;
+}
+#all_items2 #total_name{
+  place-self: start;
+}
+#all_items2 #precio_total{
+  place-self: end;
 }
 .only-cart{
   display: grid;
@@ -322,10 +336,14 @@ body {
 .cart-name{
   width: 33%;
   margin: 5px;
+  place-self: center;
+  justify-self: baseline;
 }
 .cart-price{
   width: 33%;
   margin: 5px;
+  place-self: center;
+  justify-self: auto;
 }
 .cart-cant{
   display: flex;
