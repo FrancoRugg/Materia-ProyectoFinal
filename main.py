@@ -1,9 +1,8 @@
-from flask import Flask,redirect,session,render_template,request,send_from_directory,jsonify;
+from flask import Flask,redirect,session,render_template,request,send_from_directory,jsonify,send_file, make_response;
 import os;
 from Model import bdd
 from datetime import timedelta
-
-
+from static.PDF.setPDF import create_pdf as new_PDF;
 
 app = Flask(__name__,template_folder="templates",static_folder="static"); #Nombre de la App y Ubicación de los archivos .HTML
 #Key de variable de sesion
@@ -87,9 +86,34 @@ def Home():
     #     # print(all)
     # print(session);
     return render_template("home.html");
-@app.route("/setCuil", methods=['POST'])#Preguntar como acceder directamente a las funciones
-def setCuil():
-    pass;
+    
+# Ruta para descargar el PDF
+@app.route('/download-pdf', methods=['POST'])
+def download_pdf():
+    data = request.get_json()
+    
+    if not data or not isinstance(data, list):
+        return jsonify({"error": "Datos inválidos"}), 400
+    
+    total = data[0]['precio_total'];
+    # total = sum(item['precio_total'] for item in data); #REALIZA LA SUMA
+    
+    pdf_buffer = new_PDF("12345", data, f"{total}")
+    
+    # Guardar el archivo localmente
+    with open("recibo_pago_buffer.pdf", "wb") as f:
+        f.write(pdf_buffer.getvalue())
+    
+    # Preparar la respuesta para descargar el PDF
+    response = make_response(send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name="recibo_pago.pdf",
+        mimetype='application/pdf'
+    ))
+    
+    return response
+
 @app.route("/editProduct", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
 def editProduct():
     create_by = session.get('name', 'invitado')

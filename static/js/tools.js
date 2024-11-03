@@ -39,6 +39,42 @@ function makeRequest(method, url, data = '', isBlob = false) {
         }
     });
 }
+function getFetchPDF(url, method = 'POST', bodyData = null) {
+    const headers = {
+        'Content-Type': 'application/json'  // Asegúrate de usar JSON
+    };
+
+    let options = {
+        method: method,
+        headers: headers,
+    };
+
+    if (bodyData) {
+        options.body = JSON.stringify(bodyData);  // Serializa los datos a JSON
+    }
+
+    return fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+            }
+            return response.blob();  // Obtén la respuesta como un Blob (para el PDF)
+        })
+        .then(blob => {
+            // Crea un enlace para descargar el PDF
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'recibo_pago.pdf';  // Nombre del archivo a descargar
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);  // Libera la URL del blob
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+        });
+}
 function getFetchJSON(url, method = 'GET', bodyData = null) {
     const headers = {
         'Content-Type': 'application/json'  // Cambiar a JSON

@@ -331,6 +331,7 @@ async function getSections() {
         openAndCloseProduct();
         openAndCloseSection();
         oneMoreToCart();
+        getOptionsFromSections();
         closeLoad()
     } catch (error) {
         closeLoad()
@@ -620,6 +621,44 @@ function updateTotal() {
     precio.textContent = `${totalPrice}`;
     // console.log(total); 
     // console.log(`Total Quantity: ${totalQuantity}, Total Price: ${totalPrice.toFixed(2)}`);
+}
+const generateTicket = document.getElementById('generateTicket');
+if (generateTicket) {
+    generateTicket.addEventListener('click', () => {
+        const conf = confirm('Desea agregar algún producto más al carrito?');
+        if (conf == true) {
+            const cantidad_total = document.getElementById('cantidad_total');
+            const precio_total = document.getElementById('precio_total').dataset.total_price;
+            // console.log(parseInt(cantidad_total.dataset.total));
+            if (parseInt(cantidad_total.dataset.total) <= 0) {
+                alert('No puede generar una boleta vacia.')
+                return;
+            } else {
+                const cart = document.querySelectorAll('.cart-selected article:not(.skeleton)');
+                let data = [];
+                cart.forEach((elem) => {
+                    // console.log(elem);
+                    let name = elem.querySelector('.cart-name').textContent;
+                    let price = elem.querySelector('.cart-price').textContent;
+                    let cant = elem.querySelector('input[name="total"]').value;
+                    data.push({
+                        "description": name,
+                        "unit_price": price,
+                        "quantity": cant,
+                        "total": price * cant,
+                        "precio_total": precio_total
+                    });
+                    // console.log(name, price, cant)
+                })
+                // console.log(data);
+                getFetchPDF('/download-pdf', 'POST', data)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+    })
 }
 function oneMoreToCart() {
     const add_product = document.querySelectorAll('#add_product button');
