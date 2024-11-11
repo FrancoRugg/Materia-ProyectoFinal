@@ -157,6 +157,32 @@ def download_pdf():
         mimetype='application/pdf'
     ))
     return response
+@app.route('/download-transaction', methods=['POST'])
+def download_transaction():
+    if logged == False:
+        return redirect("/login");
+    create_by = session.get('name', 'invitado')
+    data = request.get_json()
+    print(data)
+    if not data or not isinstance(data, list):
+        return jsonify({"error": "Datos inválidos"}), 400
+    
+    total = int(data[0]['precio_total']);
+    # total = sum(item['precio_total'] for item in data); #REALIZA LA SUMA
+    
+    pdf_buffer = new_PDF(create_by,"12345", data, f"{total}")
+    
+    # Guardar el archivo localmente
+    rand = random.randint(1, 10000);#GEnera núm random
+
+    # Preparar la respuesta para descargar el PDF
+    response = make_response(send_file(
+        pdf_buffer,
+        as_attachment=True,
+        download_name=f"recibo_pago.pdf",
+        mimetype='application/pdf'
+    ))
+    return response
 
 @app.route("/editProduct", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
 def editProduct():

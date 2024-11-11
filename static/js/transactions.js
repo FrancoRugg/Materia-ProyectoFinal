@@ -67,7 +67,7 @@ function getTicket() {
                 });
 
                 // Ahora rowData contiene todos los valores de la fila
-                console.log(rowData);
+                // console.log(rowData);
                 const conf = confirm('Desea descargar los datos seleccionados?');
                 if (conf == true) {
                     const cantidad_total = 1;//VER COMO PASARLE LA CANT DE ROWDATA
@@ -77,45 +77,42 @@ function getTicket() {
                         alert('No puede generar una boleta vacia.')
                         return;
                     } else {
-                        const cart = rowData[1];
-                        console.log(cart)
-                        let data = [];
-                        if (Array.isArray(cart)) {  // Si es un array
+                        // const cart = [rowData[1]]
+                        const jsonString = rowData[1].replace(/'/g, '"');  // Reemplaza comillas simples por comillas dobles
+                        try {
+                            const cart = JSON.parse(jsonString);
+
+                            // console.log(cart);
+                            // cart = cart.slice(0, -1);
+                            let data = [];
+                            // if (Array.isArray(cart)) {  // Si es un array
+                            // console.log(cart[0]);
                             cart.forEach((elem) => {
-                                console.log(elem);
                                 let name = elem.description;
                                 let price = elem.unit_price;
                                 let cant = elem.quantity;
+                                // console.log(name, price, cant)
                                 data.push({
                                     "description": name,
                                     "unit_price": price,
                                     "quantity": cant,
                                     "total": price * cant,
-                                    "precio_total": elem.precio_total
+                                    "precio_total": precio_total
                                 });
+                                // console.log(precio_total);
                             });
-                        } else {  // Si no es un array, es un solo objeto
-                            console.log(cart);
-                            let name = cart.description;
-                            let price = cart.unit_price;
-                            let cant = cart.quantity;
-                            data.push({
-                                "description": name,
-                                "unit_price": price,
-                                "quantity": cant,
-                                "total": price * cant,
-                                "precio_total": elem.precio_total
-                            });
-                            console.log(elem.precio_total);
+                            console.log(data);
+                            getFetchPDF('/download-transaction', 'POST', data)
+                                .then(res => {
+                                    console.log(res);
+                                    // window.location.reload();
+                                    //window.location.href = window.location.href; //Recarga la pág;
+                                })
+                                .catch(error => console.error('Error:', error));
+                            // Procesar el array como antes
+                        } catch (error) {
+                            console.error('Error al parsear JSON:', error);
                         }
-                        // console.log(data);
-                        getFetchPDF('/download-pdf', 'POST', data)
-                            .then(res => {
-                                // console.log(res);
-                                // window.location.reload();
-                                //window.location.href = window.location.href; //Recarga la pág;
-                            })
-                            .catch(error => console.error('Error:', error));
                     }
                 }
             })
@@ -139,11 +136,11 @@ if (search_transaction) {
         try {
             openLoad();
             getTransactionsByTime(sinceTimestamp / 1000, untilTimestamp / 1000);
-            getTicket();
             closeLoad();
         } catch (error) {
             closeLoad();
         }
+        getTicket();
     })
 }
 function getTransactionsByTime(since, until) {
@@ -179,7 +176,7 @@ function getTransactionsByTime(since, until) {
                         // console.log(e);
                         html += `<tr class="${background}">
                         <td>${e.id}</td>
-                        <td class="data-show">${e.data}</td>
+                        <td class="data-show" data-info="${e.data}">${e.data}</td>
                         <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
                         <td>${e.total}</td>
                         <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>
@@ -193,7 +190,7 @@ function getTransactionsByTime(since, until) {
                 // closeLoad();
             });
             // closeLoad();
-
+            getTicket();
         })
         .catch(error => console.error('Error:', error));
 }
@@ -234,7 +231,7 @@ function getTransactions() {
                 // console.log(e);
                 html += `<tr class="${background}">
               <td>${e.id}</td>
-              <td class="data-show">${e.data}</td>
+              <td class="data-show" data-info="${e.data}">${e.data}</td>
               <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
               <td>${e.total}</td>
               <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>

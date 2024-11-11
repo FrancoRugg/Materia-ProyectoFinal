@@ -659,7 +659,7 @@ if (generateTicket) {
                 const cart = document.querySelectorAll('.cart-selected article:not(.skeleton)');
                 let data = [];
                 cart.forEach((elem) => {
-                    // console.log(elem);
+                    console.log(elem);
                     let name = elem.querySelector('.cart-name').textContent;
                     let price = elem.querySelector('.cart-price').textContent;
                     let cant = elem.querySelector('input[name="total"]').value;
@@ -672,7 +672,7 @@ if (generateTicket) {
                     });
                     // console.log(name, price, cant)
                 })
-                // console.log(data);
+                console.log(data);
                 getFetchPDF('/download-pdf', 'POST', data)
                     .then(res => {
                         console.log(res);
