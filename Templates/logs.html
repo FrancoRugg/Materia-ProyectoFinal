@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+</head>
+
+<body>
+  <div class="all">
+    <div class="loadingContainer2">
+      <section>
+        {% for i in range(1, 16) %}
+        <article class="textContainer{{ i }}">
+          <p>Cargando...</p>
+        </article>
+        {% endfor %}
+      </section>
+    </div>
+    
+    <div class="container menu-container">
+      <!-- <section class="cart"> -->
+      <div id="see_menu">
+        <i id="menu_logo" class='bx bx-menu-alt-left'></i>
+      </div>
+      <div class="data-menu off">
+        <!-- <div>
+              <button type="submit" id="toTransactions">Ver Transacciones</button>
+            </div> -->
+        <ul>
+          <li><a href="/home"><button type="submit" id="toHome">Home</button></a></li>
+          <li><a href="/transactions"><button type="submit" id="toTransactions">Transacciones</button></a></li>
+          <li><a href="/logs"><button type="submit" id="toLogs">Logs</button></a></li>
+        </ul>
+        <!-- <div>
+              <button type="submit" id="toLogs">Ver Logs</button>
+            </div> -->
+      </div>
+      <!-- </section> -->
+    </div>
+    <div class="container">
+      <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">Bienvenido {{ session.get('name', 'invitado') }}
+      </h2>
+      <div>
+        <button type="submit" id="disconect">Log Out</button>
+      </div>
+    </div>
+    <div class="home-container data-home relative">
+      <section class="sections skeleton">
+        <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
+        <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
+        <div class="title skeleton">
+          <h2 class="skeleton transparent">Title</h2>
+          <div class="s_edit skeleton transparent" id="s_id">
+            <i class='bx bxs-edit skeleton'></i>
+          </div>
+        </div>
+        <div class="products skeleton">
+          {% for i in range(1, 5) %}
+          <article class="Product skeleton transparent">
+            <div>
+              <div class="p_edit skeleton transparent">
+                <i class='bx bxs-edit skeleton transparent'></i>
+              </div>
+              <p class="p_name skeleton transparent">Name</p>
+              <p class="p_price skeleton transparent">Price</p>
+            </div>
+            <div class="skeleton transparent">
+              <button class="transparent" type="button" id="p_id">Add</button>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="static/js/home.js"></script>
+  <script src="static/js/tools.js"></script>
+</body>
+
+</html>

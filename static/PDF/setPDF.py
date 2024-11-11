@@ -8,7 +8,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from datetime import datetime
 
 # Función que genera el PDF en un buffer
-def create_pdf(receipt_number, items, total):
+def create_pdf(vendor,receipt_number, items, total):
     # client_name,
     # Usa un buffer en memoria en vez de archivo físico
     buffer = io.BytesIO()
@@ -31,8 +31,8 @@ def create_pdf(receipt_number, items, total):
     current_date = datetime.now().strftime("%d de %B de %Y, %H:%M:%S")
 
     # Información del cliente
-        # <b>Nombre del Cliente:</b> {client_name}<br/>
     client_info = f'''
+        <b>Nombre del Vendedor:</b> {vendor}<br/>
         <b>Fecha:</b> {current_date}<br/>
         <b>Recibo No.:</b> {receipt_number}<br/>
     '''
@@ -55,7 +55,7 @@ def create_pdf(receipt_number, items, total):
         ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.skyblue),
         ('GRID', (0, 0), (-1, -1), 1, colors.black),
     ]))
     

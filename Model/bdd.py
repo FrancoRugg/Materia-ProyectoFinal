@@ -179,17 +179,23 @@ class BddMethods:
     def getTransactions(self, created_by, since, until):
         """Trae transacciones por un periodo de tiempo determinado"""
         created_by = created_by.lower().strip();
-
+        # since_str = str(since);
+        # until_str = str(until);
         getAll = Transactions.select(SO.AND(Transactions.q.time >= since,Transactions.q.time <= until))
 
-        since_not_timestamp = datetime.strptime(since, '%Y-%m-%d');
-        until_not_timestamp = datetime.strptime(until, '%Y-%m-%d');
+        since_timestamp = int(since)
+        until_timestamp = int(until)
+
+        since_not_timestamp = datetime.fromtimestamp(since_timestamp).strftime('%Y-%m-%d');
+        until_not_timestamp = datetime.fromtimestamp(until_timestamp).strftime('%Y-%m-%d');
+        # since_not_timestamp = datetime.strptime(since, '%Y-%m-%d');
+        # until_not_timestamp = datetime.strptime(until, '%Y-%m-%d');
         
         if getAll.count() > 0:
             Logs(created_by = f"{created_by}",obs =  f"Buscó Transacciones desde {since_not_timestamp}, hasta {until_not_timestamp}", action = 'GET', time = self.newTime())
             return getAll
         else:
-            return None
+            return None;
         
     def addOrEditProducts(self, created_by, ID, sectorId, name, price, active):
         """Crea o edita productos"""
@@ -254,9 +260,6 @@ class BddMethods:
         """Devuelve el id de la transacción creada"""
         created_by = created_by.lower().strip();
         time = self.newTime();
-        data = data.trim();
-        total = total;
-        aproved = aproved;
         
         # data = SO.StringCol(length = 255);
         # time = SO.IntCol(); #Guardarlo también en el log
@@ -266,7 +269,7 @@ class BddMethods:
         
         if newTransaction:
             Logs(created_by = f"{created_by}",obs =  f"Creó una nueva Transacción", action = 'INSERT', time = self.newTime())
-            return newTransaction[0].id;
+            return newTransaction.id;
         
     def getLogs(self):
         created_by = created_by.lower().strip();

@@ -7,6 +7,10 @@
   /* font-family: 'Montserrat', sans-serif; */
   /* font-weight: 400; */
 }
+:root{
+  --loading_color: 0 43 151;
+  --loading_color2: 0 196 255;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -264,6 +268,38 @@ body {
   .p_price{
     color: gray;
   }
+  /* -----------------Menu--------------------- */
+  .menu-container {
+    position: absolute;
+    left: 0%;
+    TOP: 13%;
+    height: 9vh;
+    WIDTH: 9vw;
+    margin: 0.5%;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    /* align-items: flex-start; */
+}
+.data-menu ul{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  width: 14vw;
+}
+.all_menu{
+  WIDTH: 17vw !important;
+  height: 28vh !important;
+}
+#see_menu{
+  font-size: 26px;
+  border-bottom: solid 1px lightgrey;
+  width: 100%;
+}
+.rotate{
+  transform: rotate(180deg);
+}
   /* -----------------Cart--------------------- */
 .cart-container{
   position: absolute;
@@ -361,6 +397,54 @@ body {
   width: 5vw;
 }
 
+  /* -------------------Transactions---------------------- */
+  .time-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex-wrap: nowrap;
+    padding: 6px;
+    margin: 3px;
+    border: solid 1px lightgrey;
+    border-radius: 6px;
+    width: 50%;
+  }
+  .input-time{
+    text-align: start;
+    padding: 4px;
+  }
+  .form-title{
+    text-align: left;
+    padding: 6px;
+  }
+  .data-transactions table{
+    width: 100%;
+    height: 22vh;
+    border: solid 1px lightgrey;
+  }
+  #getPDF{
+    color: lightgrey;
+  }
+  #getPDF:hover{
+    color: red;
+  }
+  table i {
+    font-size: 37px;
+  }
+  .data-show{
+    width: 75%;
+  }
+  .whitesmoke{
+    background: whitesmoke !important;
+  }
+  .aliceblue{
+    background: aliceblue !important;
+  }
+  /* tr .whitesmoke{
+    background: whitesmoke !important;
+  }
+  tr .aliceblue{
+    background: aliceblue !important;
+  } */
   /* -------------------LOADING---------------------- */
   .loadingContainer2{
     position: fixed;
@@ -398,31 +482,31 @@ body {
     text-align: center;
 }
 .textContainer1{
-    color: rgb(27 156 195 / 55%);
+    color: rgb(var(--loading_color2) / 55%);
     animation: increaseFontAnimation 1.5s infinite alternate;
     left: 65% !important;
     top: 30% !important;
 }
 .textContainer2{
-    color: rgb(0 196 255 / 60%);
+    color: rgb(var(--loading_color2) / 60%);
     animation: increaseFontAnimation 1.7s infinite alternate;
     left: 66% !important;
     top: 48% !important;
 }
 .textContainer3{
-    color: rgb(0 196 255 / 65%);
+    color: rgb(var(--loading_color2) / 65%);
     animation: increaseFontAnimation 2.5s infinite alternate;
     left: 34% !important;
     top: 32% !important;
 }
 .textContainer4{
-    color: rgb(0 196 255 / 70%);
+    color: rgb(var(--loading_color2) / 70%);
     animation: increaseFontAnimation 2.1s infinite alternate;
     left: 34% !important;
     top: 51% !important;
 }
 .textContainer5{
-    color: rgb(0 196 255 / 75%);
+    color: rgb(var(--loading_color2) / 75%);
     animation: increaseFontAnimation 2.3s infinite alternate;
     top: 65% !important;
     left: 47% !important;
@@ -438,48 +522,48 @@ body {
     top: 23% !important;
 }
 .textContainer8{
-    color: rgb(0 196 255 / 60%);
+    color: rgb(var(--loading_color2) / 60%);
     animation: increaseFontAnimation 1.9s infinite alternate;
     left: 83% !important;
     top: 64% !important;
 }
 .textContainer9{
-    color: rgb(0 196 255 / 65%);
+    color: rgb(var(--loading_color2) / 65%);
     animation: increaseFontAnimation 2.2s infinite alternate;
     left: 15% !important;
     top: 22% !important;
 }
 .textContainer10{
-    color: rgb(0 196 255 / 70%);
+    color: rgb(var(--loading_color2) / 70%);
     animation: increaseFontAnimation 1s infinite alternate;
     left: 15% !important;
     top: 58% !important;
 }
 .textContainer11{
-    color: rgb(0 196 255 / 75%);
+    color: rgb(var(--loading_color2) / 75%);
     animation: increaseFontAnimation 2s infinite alternate;
     top: 78% !important;
     left: 60% !important;
 }
 .textContainer12{
-    color: rgb(0 196 255 / 80%);
+    color: rgb(var(--loading_color2) / 80%);
     animation: increaseFontAnimation 1.6s infinite alternate;
     top: 16% !important;
 }
 .textContainer13{
-    color: rgb(0 196 255 / 85%);
+    color: rgb(var(--loading_color2) / 85%);
     animation: increaseFontAnimation 1.6s infinite alternate;
     top: 39% !important;
     left: 83% !important;
 }
 .textContainer14{
-    color: rgb(0 196 255 / 90%);
+    color: rgb(var(--loading_color2) / 90%);
     animation: increaseFontAnimation 1.6s infinite alternate;
     top: 79% !important;
     left: 18% !important;
 }
 .textContainer15{
-    color: rgb(0 196 255 / 95%);
+    color: rgb(var(--loading_color2) / 95%);
     animation: increaseFontAnimation 1.6s infinite alternate;
     top: 40% !important;
     left: 10% !important;

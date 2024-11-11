@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" />
+</head>
+
+<body>
+  <div class="all">
+    <div class="loadingContainer2">
+      <section>
+        {% for i in range(1, 16) %}
+        <article class="textContainer{{ i }}">
+          <p>Cargando...</p>
+        </article>
+        {% endfor %}
+      </section>
+    </div>
+
+    <div class="container menu-container">
+      <!-- <section class="cart"> -->
+      <div id="see_menu">
+        <i id="menu_logo" class="bx bx-menu-alt-left"></i>
+      </div>
+      <div class="data-menu off">
+        <!-- <div>
+              <button type="submit" id="toTransactions">Ver Transacciones</button>
+            </div> -->
+        <ul>
+          <li>
+            <a href="/home"><button type="submit" id="toHome">Home</button></a>
+          </li>
+          <li>
+            <a href="/transactions"><button type="submit" id="toTransactions">
+                Transacciones
+              </button></a>
+          </li>
+          <li>
+            <a href="/logs"><button type="submit" id="toLogs">Logs</button></a>
+          </li>
+        </ul>
+        <!-- <div>
+              <button type="submit" id="toLogs">Ver Logs</button>
+            </div> -->
+      </div>
+      <!-- </section> -->
+    </div>
+    <div class="container">
+      <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">
+        Bienvenido {{ session.get('name', 'invitado') }}
+      </h2>
+      <div>
+        <button type="submit" id="disconect">Log Out</button>
+      </div>
+    </div>
+    <div class="home-container data-home relative">
+      <div class="form-title">
+        <p>Busqueda por Fecha:</p>
+      </div>
+      <section class="time-container">
+        <div>
+          <article class="input-time">
+            <label for="since">Desde</label>
+            <input type="date" name="since" id="since">
+          </article>
+          <article class="input-time">
+            <label for="for">Hasta</label>
+            <input type="date" name="for" id="for">
+          </article>
+        </div>
+        <button type="button" id="search_transaction">Buscar</button>
+      </section>
+      <section class="data-transactions">
+        <table border="1" class="">
+          <!-- border="1" -->
+          <thead>
+            <tr>
+              <th class="skeleton">ID</th>
+              <th class="skeleton">Datos de la Compra</th>
+              <th class="skeleton">Fecha</th>
+              <th class="skeleton">Total</th>
+              <!-- <th>Descargar PDF</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in range(1, 5) %}
+            <tr class="ske">
+              <td class="skeleton"></td>
+              <td class="skeleton"></td>
+              <td class="skeleton"></td>
+              <td class="skeleton"></td>
+              <td class="skeleton getPDF" id="getPDF">
+
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+  <script src=" static/js/transactions.js">
+  </script>
+  <script src="static/js/tools.js"></script>
+</body>
+
+</html>

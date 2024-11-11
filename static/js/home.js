@@ -593,6 +593,28 @@ if (cart) {
         }
     })
 }
+const menu = document.getElementById('see_menu');
+if (menu) {
+    menu.addEventListener('click', () => {
+        const data_menu = document.querySelector('.data-menu');
+        const menu_container = document.querySelector('.menu-container');
+        const menu_logo = document.querySelector('#menu_logo');
+        if (data_menu) {
+            data_menu.classList.toggle('off');
+            // menu.classList.toggle('all_menu');
+        }
+        if (menu_container) {
+            // menu_container.classList.toggle('off');
+            menu_container.classList.toggle('all_menu');
+        }
+        if (menu_logo) {
+            menu_logo.classList.toggle('bx-menu-alt-left');
+            menu_logo.classList.toggle('bx-menu');
+
+            menu_logo.classList.toggle('rotate');
+        }
+    })
+}
 
 function updateTotal() {
     const all_items = document.getElementById('cantidad_total');
@@ -625,7 +647,7 @@ function updateTotal() {
 const generateTicket = document.getElementById('generateTicket');
 if (generateTicket) {
     generateTicket.addEventListener('click', () => {
-        const conf = confirm('Desea agregar algún producto más al carrito?');
+        const conf = confirm('Desea agregar algún producto más al carrito? \n Caso contrario, presione OK para finalizar el proceso.');
         if (conf == true) {
             const cantidad_total = document.getElementById('cantidad_total');
             const precio_total = document.getElementById('precio_total').dataset.total_price;
@@ -654,6 +676,8 @@ if (generateTicket) {
                 getFetchPDF('/download-pdf', 'POST', data)
                     .then(res => {
                         console.log(res);
+                        // window.location.reload();
+                        window.location.href = window.location.href; //Recarga la pág;
                     })
                     .catch(error => console.error('Error:', error));
             }
