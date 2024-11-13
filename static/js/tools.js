@@ -188,3 +188,11 @@ if (menu) {
         }
     })
 }
+
+const disconect = document.getElementById('disconect');
+if (disconect) {
+    disconect.addEventListener('click', () => {
+
+        window.location.href = '/exit';
+    })
+}

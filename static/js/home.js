@@ -7,12 +7,6 @@ window.onload = () => {
 document.addEventListener('DOMContentLoaded', () => {
     // closeLoad();
 });
-const disconect = document.getElementById('disconect');
-if (disconect) {
-    disconect.addEventListener('click', () => {
-        window.location.href = '/login';
-    })
-}
 
 function getRol() {
     const getUserData = document.getElementById('getUserData');

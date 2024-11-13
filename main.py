@@ -16,7 +16,7 @@ app.secret_key = secret;
 app.permanent_session_lifetime = timedelta(days=1)
 
 #INICIALIZAR EN FALSO
-logged = True;
+logged = False;
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     # return "<h1>Welcome</h1>";
@@ -35,40 +35,11 @@ def login():
     return render_template("login.html");
 @app.route("/home", methods = ['GET', 'POST'])
 def Home():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     #=================================================
-    session["rol"] = 1;#CAMBIAR
-                #=================================================
-    # if request.method == "POST":
-    #     try:
-    #         print(request.form.get('dni'))
-    #         print(request.form['dni'])
-    #         print(request.form.get('genre'))
-    #         if request.form["dni"] and request.form["genre"]:
-    #         # if request.form["dni"] != None and request.form["genre"] == "M" or request.form["dni"] != None and request.form["genre"] == "F":
-    #             #----------------------
-    #             print(request.form.get("dni"))
-    #             print(request.form.get("genre"))
-    #             session["dni"] = request.form["dni"];
-    #             session["genre"] = request.form["genre"];
-    #             conn = cuilCalculator(request.form["dni"],request.form["genre"])
-    #             conn.validateDNI();
-    #             cuil = conn.calculate();
-    #             print(cuil)
-                
-    #             render_template("home.html",setCuil=f"CUIL: {cuil}")
-    #             #----------------------
-    #             # print(jsonify({'cuil': f'CUIL: {cuil}'}));
-    #             # return jsonify({'cuil': f'CUIL: {cuil}'})
-    #             # return redirect("/home")
-    #         return render_template("home.html",error="Error! Complete todos los campos.") #ESTE]
-    #         # return jsonify({'Error' : "Error! Complete todos los campos."})
-    #     except Exception as e:
-    #         render_template("home.html",error=f"{e.args[0]}") #ESTE
-    #         # print({'error' : f"{e.args[0]}"});
-    #         # print(jsonify({'error' : f"{e.args[0]}"}));
-    #         # jsonify({'error' : f"{e.args[0]}"})
+    # session["rol"] = 1;#CAMBIAR
+    #=================================================
     # all = getSectorData();
     # if all:
     #     print(all);
@@ -97,24 +68,24 @@ def Home():
 # Ruta para descargar el PDF
 @app.route("/transactions")
 def goToTransactions():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     return render_template("/transactions.html"); #Si no especifica nada, va al login
 @app.route("/logs")
 def goToLogs():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     return render_template("/logs.html"); #Si no especifica nada, va al login
 @app.route("/getTransactions", methods=['GET','POST'])
 def getTransactions():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     all = conn.getAllTransactions();
     transactions_list = [{'id': s.id, 'data': s.data, 'time': s.time, 'total': s.total} for s in all]  # Convierte a lista de diccionarios
     return jsonify(transactions_list)  # Devuelve como JSON
 @app.route("/getTransactionsByTime", methods=['GET','POST'])
 def getTransactionsByTime():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     create_by = session.get('name', 'invitado');
     since = str(request.args.get('since'));
@@ -129,7 +100,7 @@ def getTransactionsByTime():
     return jsonify(transactions_list)  # Devuelve como JSON
 @app.route('/download-pdf', methods=['POST'])
 def download_pdf():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     create_by = session.get('name', 'invitado')
     data = request.get_json()
@@ -159,7 +130,7 @@ def download_pdf():
     return response
 @app.route('/download-transaction', methods=['POST'])
 def download_transaction():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     create_by = session.get('name', 'invitado')
     data = request.get_json()
@@ -186,7 +157,7 @@ def download_transaction():
 
 @app.route("/editProduct", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
 def editProduct():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     create_by = session.get('name', 'invitado')
     data = request.get_json()
@@ -204,7 +175,7 @@ def editProduct():
     
 @app.route("/editSection", methods=['GET','POST'])#Preguntar como acceder directamente a las funciones
 def editSection():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     create_by = session.get('name', 'invitado')
     data = request.get_json();
@@ -221,14 +192,14 @@ def editSection():
 
 @app.route("/getSectorData", methods=['GET'])
 def getSectorData():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     all = conn.getAllSector();
     sector_list = [{'id': s.id, 'name': s.s_name, 'active': s.active} for s in all]  # Convierte a lista de diccionarios
     return jsonify(sector_list)  # Devuelve como JSON
 @app.route("/getProducts", methods=['GET'])
 def getProducts():
-    if logged == False:
+    if session.get('logged', False) == False:
         return redirect("/login");
     sectorId = request.args.get('sectorId') 
     all = conn.getProducts(sectorId);
@@ -252,9 +223,15 @@ def exit():
     """Bye: logout"""
     # return "Hasta la próxima!"
     try:
-        if session["logged"] == True:
+        if session.get('logged', False) == True:
+            del session['logged'];
+            session.pop('logged', None);
             text = session["name"];
+            return redirect("/login");
             return f"Hasta la próxima {text}!"
+        else:
+            return redirect("/login");
+            
     except KeyError:
         return "No se encuentra logueado"
             
