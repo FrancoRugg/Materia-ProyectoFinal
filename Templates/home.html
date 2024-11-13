@@ -1,192 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
-</head>
-
-<body>
-  <article class="see_section off" id="see_section">
-    <form class="container relative" method="POST">
-      <div class="close" id="close_section">
-        <i class='bx bx-x'></i>
-      </div>
-      <div class="input_form off" id="see_id">
-        <label for="id">ID: </label>
-        <input type="id" placeholder="" name="id" id="get_id" disabled>
-      </div>
-      <div class="input_form">
-        <label for="section">Ingrese Seccion: </label>
-        <input type="section" placeholder="" name="section" id="set_section">
-      </div>
-      <div class="input_form off" id="see_active">
-        <label for="active">Activo:</label>
-        <select name="active" id="set_active">
-          <option value="" selected disabled>Activo ...</option>
-          <option value="1">Si</option>
-          <option value="0">No</option>
-        </select>
-      </div>
-      <div>
-        <button class="off" type="button" id="send_section">Crear</button>
-        <button class="off" type="button" id="edit_section">Editar</button>
-      </div>
-
-      <div>
-        <p class="error" id="error"></p>
-      </div>
-    </form>
-  </article>
-  <article class="see_section off" id="see_product">
-    <form class="container relative" method="POST">
-      <div class="close" id="close_product">
-        <i class='bx bx-x'></i>
-      </div>
-      <div class="input_form off" id="see_p_id">
-        <label for="id">ID: </label>
-        <input type="id" placeholder="" name="id" id="get_p_id" disabled>
-      </div>
-      <div class="input_form" id="see_p_section">
-        <label for="section">Sección:</label>
-        <select name="section" id="set_p_section">
-          <option value="0" selected disabled>Elija una opción ...</option>
-        </select>
-      </div>
-      <div class="input_form">
-        <label for="product">Ingrese Producto: </label>
-        <input type="product" placeholder="Ej:Pizza con Piña" name="product" id="set_product">
-      </div>
-      <div class="input_form">
-        <label for="price">Ingrese Precio: </label>
-        <input type="number" placeholder="$1000" name="price" id="set_price">
-      </div>
-      <div class="input_form off" id="see_p_active">
-        <label for="active">Activo:</label>
-        <select name="active" id="set_p_active">
-          <option value="" selected disabled>Activo ...</option>
-          <option value="1">Si</option>
-          <option value="0">No</option>
-        </select>
-      </div>
-      <div>
-        <button class="off" type="button" id="send_product">Crear</button>
-        <button class="off" type="button" id="edit_product">Editar</button>
-      </div>
-
-      <div>
-        <p class="error" id="p_error"></p>
-      </div>
-    </form>
-  </article>
-  <div class="all">
-    <div class="loadingContainer2">
-      <section>
-        {% for i in range(1, 16) %}
-        <article class="textContainer{{ i }}">
-          <p>Cargando...</p>
-        </article>
-        {% endfor %}
-      </section>
-    </div>
-
-    <div class="container">
-      <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">Bienvenido {{ session.get('name', 'invitado') }}
-      </h2>
-      <div>
-        <button type="submit" id="disconect">Log Out</button>
-      </div>
-    </div>
-    <div class="container cart-container">
-      <section class="cart">
-        <div id="see_cart">
-          <i class='bx bx-cart'></i>
+  <body>
+    <article class="see_section off" id="see_section">
+      <form class="container relative" method="POST">
+        <div class="close" id="close_section">
+          <i class="bx bx-x"></i>
         </div>
-        <div class="data-cart off">
-          <article>
-            <div id="all_items">
-              <p id="cantidad_total" data-total="0">Total: 0</p>
-              <!-- <p id="precio_total" data-total_price="0">Total: 0</p> -->
-            </div>
-            <div class="cart-selected">
-              {% for i in range(1, 5) %}
-              <article class="only-cart skeleton pre-cart" id="pre_{{ i }}">
-                <p class="cart-name skeleton">Name</p>
-                <p class="cart-price skeleton">Price</p>
-                <div class="cart-cant skeleton">
-                  <label for="total">Cantidad</label>
-                  <input type="number" name="total" min="0" id="total" disabled>
-                </div>
-              </article>
-              {% endfor %}
-            </div>
-            <div id="all_items2">
-              <!-- <p id="cantidad_total" data-total="0">Cant: 0</p> -->
-              <p id="total_name">Precio: </p>
-              <p id="precio_total" data-total_price="0">0</p>
-            </div>
-            <div id="generateTicket">
-              <button type="button">Generar Factura</button>
-            </div>
-          </article>
+        <div class="input_form off" id="see_id">
+          <label for="id">ID: </label>
+          <input type="id" placeholder="" name="id" id="get_id" disabled />
         </div>
-      </section>
-    </div>
-    <div class="container menu-container">
-      <!-- <section class="cart"> -->
-      <div id="see_menu">
-        <i id="menu_logo" class='bx bx-menu-alt-left'></i>
-      </div>
-      <div class="data-menu off">
-        <!-- <div>
-              <button type="submit" id="toTransactions">Ver Transacciones</button>
-            </div> -->
-        <ul>
-          <li><a href="/home"><button type="submit" id="toHome">Home</button></a></li>
-          <li><a href="/transactions"><button type="submit" id="toTransactions">Transacciones</button></a></li>
-          <li><a href="/logs"><button type="submit" id="toLogs">Logs</button></a></li>
-        </ul>
-        <!-- <div>
-              <button type="submit" id="toLogs">Ver Logs</button>
-            </div> -->
-      </div>
-      <!-- </section> -->
-    </div>
-    <div class="home-container data-home relative">
-      <section class="sections skeleton">
-        <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
-        <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
-        <div class="title skeleton">
-          <h2 class="skeleton transparent">Title</h2>
-          <div class="s_edit skeleton transparent" id="s_id">
-            <i class='bx bxs-edit skeleton'></i>
-          </div>
+        <div class="input_form">
+          <label for="section">Ingrese Seccion: </label>
+          <input
+            type="section"
+            placeholder=""
+            name="section"
+            id="set_section"
+          />
         </div>
-        <div class="products skeleton">
-          {% for i in range(1, 5) %}
-          <article class="Product skeleton transparent">
-            <div>
-              <div class="p_edit skeleton transparent">
-                <i class='bx bxs-edit skeleton transparent'></i>
-              </div>
-              <p class="p_name skeleton transparent">Name</p>
-              <p class="p_price skeleton transparent">Price</p>
-            </div>
-            <div class="skeleton transparent">
-              <button class="transparent" type="button" id="p_id">Add</button>
-            </div>
+        <div class="input_form off" id="see_active">
+          <label for="active">Activo:</label>
+          <select name="active" id="set_active">
+            <option value="" selected disabled>Activo ...</option>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div>
+          <button class="off" type="button" id="send_section">Crear</button>
+          <button class="off" type="button" id="edit_section">Editar</button>
+        </div>
+
+        <div>
+          <p class="error" id="error"></p>
+        </div>
+      </form>
+    </article>
+    <article class="see_section off" id="see_product">
+      <form class="container relative" method="POST">
+        <div class="close" id="close_product">
+          <i class="bx bx-x"></i>
+        </div>
+        <div class="input_form off" id="see_p_id">
+          <label for="id">ID: </label>
+          <input type="id" placeholder="" name="id" id="get_p_id" disabled />
+        </div>
+        <div class="input_form" id="see_p_section">
+          <label for="section">Sección:</label>
+          <select name="section" id="set_p_section">
+            <option value="0" selected disabled>Elija una opción ...</option>
+          </select>
+        </div>
+        <div class="input_form">
+          <label for="product">Ingrese Producto: </label>
+          <input
+            type="product"
+            placeholder="Ej:Pizza con Piña"
+            name="product"
+            id="set_product"
+          />
+        </div>
+        <div class="input_form">
+          <label for="price">Ingrese Precio: </label>
+          <input
+            type="number"
+            placeholder="$1000"
+            name="price"
+            id="set_price"
+          />
+        </div>
+        <div class="input_form off" id="see_p_active">
+          <label for="active">Activo:</label>
+          <select name="active" id="set_p_active">
+            <option value="" selected disabled>Activo ...</option>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div>
+          <button class="off" type="button" id="send_product">Crear</button>
+          <button class="off" type="button" id="edit_product">Editar</button>
+        </div>
+
+        <div>
+          <p class="error" id="p_error"></p>
+        </div>
+      </form>
+    </article>
+    <div class="all">
+      <div class="loadingContainer2">
+        <section>
+          {% for i in range(1, 16) %}
+          <article class="textContainer{{ i }}">
+            <p>Cargando...</p>
           </article>
           {% endfor %}
-        </div>
-      </section>
-    </div>
-  </div>
-  <script src="static/js/home.js"></script>
-  <script src="static/js/tools.js"></script>
-</body>
+        </section>
+      </div>
 
+      <div class="container">
+        <h2 id="getUserData" data-rol="{{ session.get('rol', '2' ) }}">
+          Bienvenido {{ session.get('name', 'invitado') }}
+        </h2>
+        <div>
+          <button type="submit" id="disconect">Log Out</button>
+        </div>
+      </div>
+      <div class="container cart-container">
+        <section class="cart">
+          <div id="see_cart">
+            <i class="bx bx-cart"></i>
+          </div>
+          <div class="data-cart off">
+            <article>
+              <div id="all_items">
+                <p id="cantidad_total" data-total="0">Total: 0</p>
+                <!-- <p id="precio_total" data-total_price="0">Total: 0</p> -->
+              </div>
+              <div class="cart-selected">
+                {% for i in range(1, 5) %}
+                <article class="only-cart skeleton pre-cart" id="pre_{{ i }}">
+                  <p class="cart-name skeleton">Name</p>
+                  <p class="cart-price skeleton">Price</p>
+                  <div class="cart-cant skeleton">
+                    <label for="total">Cantidad</label>
+                    <input
+                      type="number"
+                      name="total"
+                      min="0"
+                      id="total"
+                      disabled
+                    />
+                  </div>
+                </article>
+                {% endfor %}
+              </div>
+              <div id="all_items2">
+                <!-- <p id="cantidad_total" data-total="0">Cant: 0</p> -->
+                <p id="total_name">Precio:</p>
+                <p id="precio_total" data-total_price="0">0</p>
+              </div>
+              <div id="generateTicket">
+                <button type="button">Generar Factura</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div class="container menu-container">
+        <!-- <section class="cart"> -->
+        <div id="see_menu">
+          <i id="menu_logo" class="bx bx-menu-alt-left"></i>
+        </div>
+        <div class="data-menu off">
+          <!-- <div>
+              <button type="submit" id="toTransactions">Ver Transacciones</button>
+            </div> -->
+          <ul>
+            <li id="toHome">
+              <a href="/home"><button type="submit">Home</button></a>
+            </li>
+            <li id="toTransactions">
+              <a href="/transactions"
+                ><button type="submit">Transacciones</button></a
+              >
+            </li>
+            <li id="toLogs">
+              <a href="/logs"><button type="submit">Logs</button></a>
+            </li>
+          </ul>
+          <!-- <div>
+              <button type="submit" id="toLogs">Ver Logs</button>
+            </div> -->
+        </div>
+        <!-- </section> -->
+      </div>
+      <div class="home-container data-home relative">
+        <section class="sections skeleton">
+          <!-- //Poner que tenga sea de 4/5 espacios con display grid -->
+          <!-- si está activo que se muestre, si no es admin que aparezca difuminado -->
+          <div class="title skeleton">
+            <h2 class="skeleton transparent">Title</h2>
+            <div class="s_edit skeleton transparent" id="s_id">
+              <i class="bx bxs-edit skeleton"></i>
+            </div>
+          </div>
+          <div class="products skeleton">
+            {% for i in range(1, 5) %}
+            <article class="Product skeleton transparent">
+              <div>
+                <div class="p_edit skeleton transparent">
+                  <i class="bx bxs-edit skeleton transparent"></i>
+                </div>
+                <p class="p_name skeleton transparent">Name</p>
+                <p class="p_price skeleton transparent">Price</p>
+              </div>
+              <div class="skeleton transparent">
+                <button class="transparent" type="button" id="p_id">Add</button>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="static/js/home.js"></script>
+    <script src="static/js/tools.js"></script>
+  </body>
 </html>

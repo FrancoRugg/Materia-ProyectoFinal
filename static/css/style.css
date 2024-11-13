@@ -292,6 +292,12 @@ body {
   WIDTH: 17vw !important;
   height: 28vh !important;
 }
+.menu_basic{
+  height: 22vh !important;
+}
+.listStyle{
+  list-style: none;
+}
 #see_menu{
   font-size: 26px;
   border-bottom: solid 1px lightgrey;
@@ -445,6 +451,8 @@ body {
   tr .aliceblue{
     background: aliceblue !important;
   } */
+
+  
   /* -------------------LOADING---------------------- */
   .loadingContainer2{
     position: fixed;

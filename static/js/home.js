@@ -593,29 +593,6 @@ if (cart) {
         }
     })
 }
-const menu = document.getElementById('see_menu');
-if (menu) {
-    menu.addEventListener('click', () => {
-        const data_menu = document.querySelector('.data-menu');
-        const menu_container = document.querySelector('.menu-container');
-        const menu_logo = document.querySelector('#menu_logo');
-        if (data_menu) {
-            data_menu.classList.toggle('off');
-            // menu.classList.toggle('all_menu');
-        }
-        if (menu_container) {
-            // menu_container.classList.toggle('off');
-            menu_container.classList.toggle('all_menu');
-        }
-        if (menu_logo) {
-            menu_logo.classList.toggle('bx-menu-alt-left');
-            menu_logo.classList.toggle('bx-menu');
-
-            menu_logo.classList.toggle('rotate');
-        }
-    })
-}
-
 function updateTotal() {
     const all_items = document.getElementById('cantidad_total');
     const precio = document.getElementById('precio_total');

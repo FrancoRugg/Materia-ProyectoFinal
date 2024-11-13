@@ -1,6 +1,6 @@
 window.onload = () => {
     // openLoad();
-    getTransactions();
+    // getTransactions();
     // getTicket();
 }
 
@@ -42,9 +42,7 @@ function getTicket() {
                 cells.forEach(cell => {
                     rowData.push(cell.textContent.trim());
                 });
-                const dataInfo = cells[1].getAttribute('data-info');
 
-                // console.log('Data-info:', dataInfo);
                 // Ahora rowData contiene todos los valores de la fila
                 // console.log(rowData);
                 const conf = confirm('Desea descargar los datos seleccionados?');
@@ -57,7 +55,7 @@ function getTicket() {
                         return;
                     } else {
                         // const cart = [rowData[1]]
-                        const jsonString = dataInfo.replace(/'/g, '"');  // Reemplaza comillas simples por comillas dobles
+                        const jsonString = rowData[1].replace(/'/g, '"');  // Reemplaza comillas simples por comillas dobles
                         try {
                             const cart = JSON.parse(jsonString);
 
@@ -152,21 +150,10 @@ function getTransactionsByTime(since, until) {
 
                     res.forEach(e => {
                         const background = (e.id % 2) == 0 ? "aliceblue" : "whitesmoke";
-                        let data = e.data;
-                        // console.log(data.description)
-                        const jsonString = data.replace(/'/g, '"');
-                        const cart = JSON.parse(jsonString);
-                        // console.log(cart[0].description)
-                        let show = "";
-                        cart.forEach((e) => {
-                            show += "<p>Nombre: " + e.description + " - Precio unico: " + e.unit_price + " - Cantidad: " + e.quantity + " \n </p>";
-                        })
-
-                        // console.log(show)
                         // console.log(e);
                         html += `<tr class="${background}">
                         <td>${e.id}</td>
-                        <td class="data-show" data-info="${e.data}">${show}</td>
+                        <td class="data-show" data-info="${e.data}">${e.data}</td>
                         <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
                         <td>${e.total}</td>
                         <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>
@@ -218,19 +205,10 @@ function getTransactions() {
 
             res.forEach(e => {
                 const background = (e.id % 2) == 0 ? "aliceblue" : "whitesmoke";
-                let data = e.data;
-                // console.log(data.description)
-                const jsonString = data.replace(/'/g, '"');
-                const cart = JSON.parse(jsonString);
-                // console.log(cart[0].description)
-                let show = "";
-                cart.forEach((e) => {
-                    show += "<p>Nombre: " + e.description + " - Precio unico: " + e.unit_price + " - Cantidad: " + e.quantity + " \n </p>";
-                })
                 // console.log(e);
                 html += `<tr class="${background}">
               <td>${e.id}</td>
-              <td class="data-show" data-info="${e.data}">${show}</td>
+              <td class="data-show" data-info="${e.data}">${e.data}</td>
               <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
               <td>${e.total}</td>
               <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>
