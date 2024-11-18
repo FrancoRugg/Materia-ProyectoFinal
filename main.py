@@ -76,6 +76,23 @@ def goToLogs():
     if session.get('logged', False) == False:
         return redirect("/login");
     return render_template("/logs.html"); #Si no especifica nada, va al login
+@app.route("/getLogs", methods=['GET'])
+def getLogs():
+    if session.get('logged', False) == False:
+        return redirect("/login");
+    create_by = session.get('name', 'invitado')
+    all = conn.getLogs(create_by);
+    logs_list = [{'created_by': s.created_by, 'time': s.time,'action':s.action, 'obs': s.obs} for s in all]  # Convierte a lista de diccionarios
+    return jsonify(logs_list)  # Devuelve como JSON
+@app.route("/getLogByAction", methods=['GET'])
+def getLogByAction():
+    if session.get('logged', False) == False:
+        return redirect("/login");
+    create_by = session.get('name', 'invitado')
+    action = str(request.args.get('action'))
+    all = conn.getLogByAction(create_by,action);
+    logs_list = [{'created_by': s.created_by, 'time': s.time,'action':s.action, 'obs': s.obs} for s in all]  # Convierte a lista de diccionarios
+    return jsonify(logs_list)  # Devuelve como JSON
 @app.route("/getTransactions", methods=['GET','POST'])
 def getTransactions():
     if session.get('logged', False) == False:

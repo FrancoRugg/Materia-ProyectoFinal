@@ -1,6 +1,6 @@
 window.onload = () => {
     // openLoad();
-    // getTransactions();
+    getLogs();
     // getTicket();
 }
 
@@ -89,34 +89,25 @@ function getTicket() {
         })
     }
 }
-const search_transaction = document.getElementById('search_transaction');
-if (search_transaction) {
-    search_transaction.addEventListener('click', (e) => {
-        const since = document.getElementById('since').value;
-        const until = document.getElementById('for').value;
 
-        const sinceTimestamp = new Date(since).getTime();
-        const untilTimestamp = new Date(until).getTime();
-        // console.log(since, until);
-        // console.log(sinceTimestamp, untilTimestamp);
-        if (isNaN(sinceTimestamp) || isNaN(untilTimestamp)) {
-            alert('Rango invalido: ingresar fechas a buscar.');
-            return;
+const action_filter = document.getElementById('action_filter');
+if (action_filter) {
+    action_filter.addEventListener('change', () => {
+        // console.log(action_filter.value)
+        let action = action_filter.value;
+
+        if (action == 'All') {
+            getLogs();
+        } else {
+            getLogByAction(action);
         }
-        try {
-            openLoad();
-            getTransactionsByTime(sinceTimestamp / 1000, untilTimestamp / 1000);
-            closeLoad();
-        } catch (error) {
-            closeLoad();
-        }
-        getTicket();
     })
 }
-function getTransactionsByTime(since, until) {
-    getFetch(`/getTransactionsByTime?since=${since}&until=${until}`, 'GET')
+
+function getLogByAction(action) {
+    getFetch(`/getLogByAction?action=${action}`, 'GET')
         .then(response => {
-            // openLoad();
+            openLoad();
             res = JSON.parse(response);
             res.forEach(e => {
                 // console.log(e);
@@ -128,39 +119,31 @@ function getTransactionsByTime(since, until) {
 
                 const thead = document.querySelector('thead');
                 thead.innerHTML = `<tr>
-            <th>ID</th>
-            <th>Datos de la Compra</th>
-            <th>Fecha</th>
-            <th>Total</th>
-            <!-- <th>Descargar PDF</th> -->
-          </tr>`;
+                                    <th>Usuario</th>
+                                    <th>Observación</th>
+                                    <th>Acción Realizada</th>
+                                    <th>Fecha</th>
+                                </tr>`;
 
                 const tbody = document.querySelector('tbody');
 
                 let html = "";
                 res = JSON.parse(response);
-                if (res.length > 0) {
 
-                    res.forEach(e => {
-                        const background = (e.id % 2) == 0 ? "aliceblue" : "whitesmoke";
-                        // console.log(e);
-                        html += `<tr class="${background}">
-                        <td>${e.id}</td>
-                        <td class="data-show" data-info="${e.data}">${e.data}</td>
-                        <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
-                        <td>${e.total}</td>
-                        <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>
-                        </tr>`;
-                    });
-                    tbody.innerHTML = html;
-                } else {
-                    alert('No hay datos en las fechas ingresadas.')
-                }
-
+                res.forEach(e => {
+                    const color = (e.action === 'GET') ? "skyblue" : ((e.action === 'INSERT') ? "lightgreen" : "orange");
+                    // console.log(e);
+                    html += `<tr style="background:${color}">
+                                <td>${e.created_by}</td>
+                                <td class="data-show">${e.obs}</td>
+                                <td>${e.action}</td>
+                                <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
+                            </tr>`;
+                });
+                tbody.innerHTML = html;
                 // closeLoad();
             });
-            // closeLoad();
-            getTicket();
+            closeLoad();
         })
         .catch(error => console.error('Error:', error));
 }
@@ -172,8 +155,8 @@ function convertTimestampToFormattedDate(timestamp, locale = 'en-GB') {
         day: '2-digit'
     });
 }
-function getTransactions() {
-    getFetch(`/getTransactions`, 'GET')
+function getLogs() {
+    getFetch(`/getLogs`, 'GET')
         .then(response => {
             openLoad();
             const ske = document.querySelectorAll('tr.ske');
@@ -184,12 +167,11 @@ function getTransactions() {
 
             const thead = document.querySelector('thead');
             thead.innerHTML = `<tr>
-            <th>ID</th>
-            <th>Datos de la Compra</th>
-            <th>Fecha</th>
-            <th>Total</th>
-            <!-- <th>Descargar PDF</th> -->
-          </tr>`;
+                                <th>Usuario</th>
+                                <th>Observación</th>
+                                <th>Acción Realizada</th>
+                                <th>Fecha</th>
+                            </tr>`;
 
             const tbody = document.querySelector('tbody');
 
@@ -197,18 +179,18 @@ function getTransactions() {
             res = JSON.parse(response);
 
             res.forEach(e => {
-                const background = (e.id % 2) == 0 ? "aliceblue" : "whitesmoke";
+
+                const color = (e.action === 'GET') ? "skyblue" : ((e.action === 'INSERT') ? "lightgreen" : "orange");
                 // console.log(e);
-                html += `<tr class="${background}">
-              <td>${e.id}</td>
-              <td class="data-show" data-info="${e.data}">${e.data}</td>
-              <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
-              <td>${e.total}</td>
-              <td class="getPDF" id="getPDF"><i class='bx bxs-file-pdf'></i></td>
-            </tr>`;
+                html += `<tr style="background:${color}">
+                            <td>${e.created_by}</td>
+                            <td class="data-show">${e.obs}</td>
+                            <td>${e.action}</td>
+                            <td data-time="${e.time}">${convertTimestampToFormattedDate(e.time, 'es-AR')}</td>
+                        </tr>`;
             });
             tbody.innerHTML = html;
-            getTicket();
+            // getTicket();
             closeLoad();
         })
         .catch(error => console.error('Error:', error));

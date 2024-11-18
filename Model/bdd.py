@@ -271,7 +271,7 @@ class BddMethods:
             Logs(created_by = f"{created_by}",obs =  f"Creó una nueva Transacción", action = 'INSERT', time = self.newTime())
             return newTransaction.id;
         
-    def getLogs(self):
+    def getLogs(self,created_by):
         created_by = created_by.lower().strip();
         get = Logs.select(True == True);
         
@@ -280,7 +280,7 @@ class BddMethods:
             return get;
         else:
             return "No se encuentran Logs.";
-    def getLogByAction(self, action):
+    def getLogByAction(self, created_by, action):
         action = action.upper().strip();
         created_by = created_by.lower().strip();
         get = Logs.select(Logs.q.action == action);
