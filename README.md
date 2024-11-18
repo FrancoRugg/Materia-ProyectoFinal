@@ -34,8 +34,8 @@ Calle Falsa 123.
 | Login | 1:30hs | 30min |
 | Home | 8hs | 6hs |
 | Transactions | 5hs | 4hs |
-| Logs | 3hs | 1:30hs |
-| Total | 17:30 | 12 |
+| Logs | 3hs | 30min |
+| Total | 17:30 | 11 |
 
 ---
 
