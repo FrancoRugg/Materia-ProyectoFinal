@@ -15,18 +15,27 @@ Calle Falsa 123.
 
 ---
 
+## Descripción del Proyecto:
+- Módulo principal de logueo.
+- Plataforma con usuario Admin y Basico, los mismos cuentan con permisos diferentes.
+- Sistema de Agregado y edición, tanto de los Produtos como de las Secciones del los mismos.
+- Carrito de compras que genera factura con los productos ingresados y los datos del vendedor.
+- Sistema para visualizar las facturas generadas, las cuales pueden filtrarse por fecha.
+- Módulo de Logs para usuarios Admin, en el cual pueden visualizar y las acciones realizadas por los usuarios.
+
+---
+
 ![Logo de la universidad](./src/public/img/fecea.png "Logo Facultad")
 
 ---
 
-| Materias | Parciales | Calificación |
+| Módulos | Tiempo Estimado | Tiempo Real |
 |----------|-----------|--------------|
-| Proyecto Final | 1 | 10 |
-| Valores Cristianos | 1 | 8 |
-| Calidad de Software | 1 | 10 |
-| Taller Prog III | 2 | 9.5 |
-| Seguridad e Integridad de Sistemas | 6 | 10 |
-| Prog III | 1 | 6 |
+| Login | 1:30hs | 30min |
+| Home | 8hs | 6hs |
+| Transactions | 5hs | 4hs |
+| Logs | 3hs | 1:30hs |
+| Total | 23:30 | 12 |
 
 ---
 
