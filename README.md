@@ -39,5 +39,22 @@ Calle Falsa 123.
 | Total | 17:30 | 11 |
 
 ---
+## Login
+- FrontEnd
+  .Form Design
+- BackEnd
+  .DB connection
+  .Validations
 
+## Home
+- FrontEnd
+- BackEnd
+  
+## Transactions
+- FrontEnd
+- BackEnd
+
+## Logs
+- FrontEnd
+- BackEnd
 
