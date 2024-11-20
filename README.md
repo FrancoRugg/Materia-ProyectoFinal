@@ -28,21 +28,14 @@ Calle Falsa 123.
 ![Logo de la universidad](./src/public/img/fecea.png "Logo Facultad")
 
 ---
-
+<!-- |FrontEnd|||
+|BackEnd||| -->
 | Módulos | Tiempo Estimado | Tiempo Real |
 |----------|-----------|--------------|
 | Login | 1:30hs | 30min |
-<!-- |FrontEnd|||
-|BackEnd||| -->
 | Home | 8hs | 6hs |
-<!-- |FrontEnd|||
-|BackEnd||| -->
 | Transactions | 5hs | 4hs |
-<!-- |FrontEnd|||
-|BackEnd||| -->
 | Logs | 3hs | 30min |
-<!-- |FrontEnd|||
-|BackEnd||| -->
 | Total | 17:30 | 11 |
 
 ---
