@@ -32,17 +32,17 @@ Calle Falsa 123.
 | Módulos | Tiempo Estimado | Tiempo Real |
 |----------|-----------|--------------|
 | Login | 1:30hs | 30min |
-|FrontEnd|||
-|BackEnd|||
+<!-- |FrontEnd|||
+|BackEnd||| -->
 | Home | 8hs | 6hs |
-|FrontEnd|||
-|BackEnd|||
+<!-- |FrontEnd|||
+|BackEnd||| -->
 | Transactions | 5hs | 4hs |
-|FrontEnd|||
-|BackEnd|||
+<!-- |FrontEnd|||
+|BackEnd||| -->
 | Logs | 3hs | 30min |
-|FrontEnd|||
-|BackEnd|||
+<!-- |FrontEnd|||
+|BackEnd||| -->
 | Total | 17:30 | 11 |
 
 ---
