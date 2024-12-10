@@ -11,7 +11,7 @@ Calle Falsa 123.
 
 - Primaria.
 - Secundaria.
-- Terciario(Cursando actualmente).
+- Terciario.
 
 ---
 
