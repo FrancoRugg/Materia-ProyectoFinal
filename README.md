@@ -40,21 +40,22 @@ Calle Falsa 123.
 
 ---
 ## Login
-- FrontEnd
-  .Form Design
-- BackEnd
-  .DB connection
-  .Validations
+- Diseño del módulo.
+- Validaciones y manejo de errores.
 
 ## Home
-- FrontEnd
-- BackEnd
+- Diseño y configuración del ABM de sectores y productos.
+- Manejo de Roles.
+- Diseño y funcionamiento del carrito.
+- Manejo de Rutas.
+- Diseño del Menú.
   
 ## Transactions
-- FrontEnd
-- BackEnd
+- Diseño y funcionabilidad del tablero.
+- Filtro de busqueda por fecha.
 
 ## Logs
-- FrontEnd
-- BackEnd
+- Diseño de la tabla.
+- Filtro por tipo de movimiento.
+- Uso exclusivo para el Administrador.
 
